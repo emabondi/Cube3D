@@ -6,11 +6,16 @@
 /*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2022/12/09 17:50:12 by gmeoli           ###   ########.fr       */
+/*   Updated: 2022/12/09 19:03:27 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
+
+int check_map()
+{
+	
+}
 
 void	check_name(char *f)
 {
@@ -25,14 +30,14 @@ void	check_name(char *f)
 void	get_map(char *f, t_data *data)
 {
 	int	fd;
+	(void)data;
 
-	check_name(f);
+	check_ext_name(f);
 	fd = open(f, O_RDONLY);
 	if (fd == -1)
 		ft_error("Error: No such file or directory\n");
 	while (get_next_line(fd))
 	{
-		write(1, "leggo\n", 6);
+		check_map(); 
 	}
-	(void)data;
 }

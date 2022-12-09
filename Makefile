@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
+#    By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2022/12/09 17:16:10 by ebondi           ###   ########.fr        #
+#    Updated: 2022/12/09 18:00:17 by gmeoli           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 FLAGS = -Wall -Werror -Wextra #-l mlx -framework openGL -framework AppKit
-OBJS = cube.c utils.c map.c
+OBJS = main.c utils.c map.c
 LIBFT = libft/libft.a 
 GNL = gnl/get_next_line.c gnl/get_next_line_utils.c
 GNL_FLAGS = -D BUFFER_SIZE=42
