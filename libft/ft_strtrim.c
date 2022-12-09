@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 12:40:13 by ebondi            #+#    #+#             */
-/*   Updated: 2022/11/21 13:03:04 by ebondi           ###   ########.fr       */
+/*   Updated: 2022/12/09 17:50:53 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,4 @@ char	*ft_strtrim(char const *s1, char const *set)
 	while (ft_checkset(s1[k -1], (char *)set) && k > c)
 		k--;
 	return (ft_substr((char *)s1, c, k - c));
-
 }
