@@ -6,18 +6,20 @@
 #    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2022/12/09 15:09:18 by ebondi           ###   ########.fr        #
+#    Updated: 2022/12/09 17:16:10 by ebondi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 FLAGS = -Wall -Werror -Wextra #-l mlx -framework openGL -framework AppKit
-OBJS = cube.c
+OBJS = cube.c utils.c map.c
 LIBFT = libft/libft.a 
+GNL = gnl/get_next_line.c gnl/get_next_line_utils.c
+GNL_FLAGS = -D BUFFER_SIZE=42
 
 $(NAME):$(OBJS)
 		@make -C libft
-		@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT)
+		@gcc $(FLAGS) $(OBJS) -o $(NAME) $(GNL) $(GNL_FLAGS) $(LIBFT)
 		@printf "\033[1;35mCub3D compiled!!\e[0m\n"
 
 all: $(NAME)
@@ -32,7 +34,7 @@ fclean:
 	@make fclean -C libft
 	@printf "\033[1;91mRemoving objects...\n"
 
-re: relibft fclean all
+re: all bonus clean fclean relibft 
 
 relibft:
 		@make fclean -C libft

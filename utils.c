@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2022/12/09 16:50:28 by ebondi           ###   ########.fr       */
+/*   Created: 2022/12/09 15:46:48 by ebondi            #+#    #+#             */
+/*   Updated: 2022/12/09 16:16:39 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-
-
-int	main(int argc, char *argv[])
+int	ft_error(char *str)
 {
-	t_data data;
-	
-	if (argc != 2)
-		return (ft_error("Invalid number of arguments\n"));
-	get_map(argv[1], &data);
-
-	return (0);
+	ft_putstr_fd(str, 2);
+	exit (0);
 }
