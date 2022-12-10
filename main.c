@@ -6,20 +6,22 @@
 /*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2022/12/10 20:38:58 by gmeoli           ###   ########.fr       */
+/*   Updated: 2022/12/10 21:58:41 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-void	ft_init_data(t_data *data)
+void	ft_init_struct(t_data *data, char *argv)
 {
-	t_map	*map;
+	t_map	map;
 
-	map->height = 0;
-	map->width = 0;
-	map->matrix = NULL;
-	map->pov = 0;
+	data->mlx = mlx_init();
+	data->win = NULL;
+	map.height = 0;
+	map.width = 0;
+	map.matrix = ft_fill_matrix(&map, argv[1]);
+	map.pov = 0;
 }
 
 int	main(int argc, char *argv[])
@@ -28,11 +30,13 @@ int	main(int argc, char *argv[])
 
 	if (argc == 2 && !check_name(argv[1]))
 	{
-		ft_init_struct(&data);
+		ft_init_struct(&data, argv[1]);
 		get_map(argv[1], &data);
-		// check_map(&data.map);
+		// // check_map(&data.map);
+		data.win = mlx_new_window(data.mlx, data.map.width * 64, \
+			data.map.height * 64, "Play your game!");
 	}
 	else
-		return (ft_error("Invalid number of arguments\n"));
+		return (ft_error("Invalid arguments\n"));
 	return (0);
 }

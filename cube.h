@@ -6,7 +6,7 @@
 /*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2022/12/10 20:27:48 by gmeoli           ###   ########.fr       */
+/*   Updated: 2022/12/10 21:56:32 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_data {
+	void		*mlx;
+	void		*win;
 	t_images	images;
 	t_map		map;
 }	t_data;
@@ -49,5 +51,6 @@ int				check_name(char *str);
 
 //map
 void			get_map(char *f, t_data *data);
+char			**ft_fill_matrix(t_map *map, char **maps);
 
 #endif
