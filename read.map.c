@@ -6,13 +6,13 @@
 /*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 21:51:14 by gmeoli            #+#    #+#             */
-/*   Updated: 2022/12/10 22:05:47 by gmeoli           ###   ########.fr       */
+/*   Updated: 2022/12/11 19:56:45 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube.h"
 
-char	**ft_fill_matrix(t_map *map, char **maps)
+char	**ft_fill_matrix(t_map *map, char *maps)
 {
 	int		i;
 	int		j;

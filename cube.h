@@ -6,7 +6,7 @@
 /*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2022/12/10 21:56:32 by gmeoli           ###   ########.fr       */
+/*   Updated: 2022/12/11 19:56:48 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ int				check_name(char *str);
 
 //map
 void			get_map(char *f, t_data *data);
-char			**ft_fill_matrix(t_map *map, char **maps);
+char			**ft_fill_matrix(t_map *map, char *maps);
 
 #endif
