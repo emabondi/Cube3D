@@ -6,7 +6,7 @@
 #    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/19 18:06:31 by ebondi           ###   ########.fr        #
+#    Updated: 2023/01/19 18:08:36 by ebondi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,6 @@ fclean:	clean
 	@printf "\033[1;91mRemoving objects...\n"
 
 re:			fclean all
-
-.PHONY:		all clean fclean re bonus
 
 vai: re
 	@./$(NAME)
