@@ -3,46 +3,58 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
+#    By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/19 15:04:41 by ebondi           ###   ########.fr        #
+#    Updated: 2023/01/19 16:18:45 by gmeoli           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3D
-FLAGS = -Wall -Werror -Wextra -l mlx -framework openGL -framework AppKit
-OBJS = main.c utils.c map.c check_map.c read_map.c utils.c
-LIBFT = libft/libft.a 
-GNL = gnl/get_next_line.c gnl/get_next_line_utils.c
-GNL_FLAGS = -D BUFFER_SIZE=42
-
-$(NAME):$(OBJS)
-		@make -C libft
-		@gcc $(FLAGS) $(OBJS) -o $(NAME) $(GNL) $(GNL_FLAGS) $(LIBFT)
-		@printf "\033[1;35mCub3D compiled!!\e[0m\n"
+NAME = cub3d
+NAMEBONUS = cub3D_bonus
+LIBFT = ./libft/libft.a
+MLX = ./mlx/libmlx.a
+SRCSFLS = main.c check_map.c map.c read_map.c utils.c
+SRCS = $(addprefix src/, $(SRCSFLS))
+SRCSFLSBONUS = check_validity.c draw_line_texture.c fill_matrix.c free_all.c ft_doors.c ft_mouse.c game.c minimap.c minimap2.c parse_map.c various_inits.c init_and_utils.c init_and_utils2.c loops_move.c raycasting.c utils6.c utils2.c
+SRCSBONUS = $(addprefix bonus/src/, $(SRCSFLSBONUS))
+OBJS = $(SRCS:.c=.o)
+HDRS = cub3d.h
+FLAGS = -Wall -Werror -Wextra
+COMPILER = -l mlx -framework openGL -framework AppKit
 
 all: $(NAME)
 
-bonus: $(NAME)
+bonus: $(NAMEBONUS)
+
+$(LIBFT):
+	$(MAKE) -C ./libft
+
+$(NAME): $(LIBFT) $(MLX)
+	@gcc $(FLAGS) $(SRCS) $(LIBFT) $(MLX) $(COMPILER) -o $(NAME)
+	@printf "\033[1;35mCub3D compiled!!\e[0m\n"
+
+$(NAMEBONUS): $(LIBFT) $(MLX)
+	@gcc $(FLAGS) $(SRCSBONUS) $(LIBFT) $(MLX) $(COMPILER) -o $(NAMEBONUS)
 
 clean:
-	@make clean -C libft
+	@rm -f $(OBJS)
+	@make clean -C ./libft
 
-fclean:
+fclean:	clean
 	@rm -f $(NAME)
-	@make fclean -C libft
+	@rm -f $(NAMEBONUS)
+	@make fclean -C ./libft
 	@printf "\033[1;91mRemoving objects...\n"
 
-re: all bonus clean fclean relibft 
+re:			fclean all
 
-relibft:
-		@make fclean -C libft
-		@make -C libft
+.PHONY:		all clean fclean re bonus
+
 vai: re
 	@./$(NAME)
 
 leaks:
 	@leaks --atExit -- ./$(NAME)
 
-.PHONY:	all clean fclean re bonus vai leaks relibft
+.PHONY:	all clean fclean re bonus vai leaks
