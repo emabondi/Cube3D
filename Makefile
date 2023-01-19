@@ -6,7 +6,7 @@
 #    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/19 18:08:36 by ebondi           ###   ########.fr        #
+#    Updated: 2023/01/19 18:21:46 by ebondi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ LIBFT = ./libft/libft.a
 MLX = ./mlx/libmlx.a
 SRCSFLS = main.c check_map.c map.c read_map.c utils.c
 SRCS = $(addprefix src/, $(SRCSFLS))
+GNLSRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 SRCSFLSBONUS =
 SRCSBONUS = $(addprefix bonus/src/, $(SRCSFLSBONUS))
 OBJS = $(SRCS:.c=.o)
@@ -31,7 +32,7 @@ $(LIBFT):
 	@$(MAKE) -C ./libft
 
 $(NAME): $(LIBFT) $(MLX)
-	@gcc $(FLAGS) $(SRCS) $(LIBFT) $(MLX) $(COMPILER) -o $(NAME)
+	@gcc $(FLAGS) $(SRCS) $(GNLSRCS) $(LIBFT) $(MLX) $(COMPILER) -o $(NAME)
 	@printf "\033[1;35mCub3D compiled!!\e[0m\n"
 
 $(NAMEBONUS): $(LIBFT) $(MLX)

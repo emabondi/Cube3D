@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 18:14:27 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/01/19 15:59:12 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/01/19 18:24:22 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ char	*get_next_line(int fd)
 	while (save[fd][i] && save[fd][i] != '\n')
 		i++;
 	file = ft_substrg(save[fd], 0, i + 1);
-	save[fd] = ft_save(save[fd], file);
+	save[fd] = ft_saveg(save[fd], file);
 	return (file);
 }
 
-char	*get_line(int fd, char *save)
+char	*get_lineg(int fd, char *save)
 {
 	int		count;
 	char	*buffer;
@@ -39,7 +39,7 @@ char	*get_line(int fd, char *save)
 	count = 1;
 	if (!save)
 		save = ft_callocg (1, 1);
-	while (count > 0 && ft_strchr(save, '\n') == -1)
+	while (count > 0 && ft_strchrg(save, '\n') == -1)
 	{
 		buffer = ft_callocg(1, BUFFER_SIZE + 1);
 		if (!buffer)

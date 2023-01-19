@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/04 18:14:18 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/01/19 15:59:33 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/01/19 18:19:41 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*ft_substrg(char const *s, unsigned int start, size_t len)
 	tmp_start = (int)start;
 	if (!s)
 		return (NULL);
-	if ((int)start > (int)ft_strlen((char *)s))
+	if ((int)start > (int)ft_strleng((char *)s))
 		return (NULL);
 	substr = (char *) malloc (len + 1);
 	substr[len] = '\0';
@@ -88,7 +88,7 @@ char	*ft_substrg(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoing(char *s1, char *s2)
 {
 	char	*str;
 	size_t	len;
