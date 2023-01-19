@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/19 18:16:10 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/19 19:26:39 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@
 # include "../mlx/mlx.h"
 
 typedef struct s_images {
-	int			img_width;
-	int			img_height;
-	void		*SO;
-	void		*NO;
-	void		*EA;
-	void		*WE;
+	//int	img_width;
+	//int	img_height;
+	char	*south;
+	char	*north;
+	char	*east;
+	char	*weast;
 }	t_images;
 
 typedef struct s_map {
 	int			width;
 	int			height;
 	char		**matrix;
-	void		*F;
-	void		*C;
+	char		*floor;
+	char		*ceiling;
 	int			pov;
 }	t_map;
 
@@ -51,7 +51,6 @@ int				ft_error(char *str);
 int				check_name(char *str);
 
 //map
-void			get_map(char *f, t_data *data);
-char			**ft_fill_matrix(t_map *map, char *maps);
+void			get_info(char *f, t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/19 18:21:46 by ebondi           ###   ########.fr        #
+#    Updated: 2023/01/19 18:56:14 by ebondi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 NAMEBONUS = cub3D_bonus
 LIBFT = ./libft/libft.a
 MLX = ./mlx/libmlx.a
-SRCSFLS = main.c check_map.c map.c read_map.c utils.c
+SRCSFLS = main.c check_map.c map.c utils.c
 SRCS = $(addprefix src/, $(SRCSFLS))
 GNLSRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 SRCSFLSBONUS =
