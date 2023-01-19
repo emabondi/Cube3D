@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2022/12/11 19:57:41 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/01/19 15:03:42 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_init_struct(t_data *data, char *argv)
 	data->win = NULL;
 	map.height = 0;
 	map.width = 0;
-	map.matrix = ft_fill_matrix(&map, argv[1]);
+	map.matrix = ft_fill_matrix(&map, argv);
 	map.pov = 0;
 }
 
