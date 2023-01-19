@@ -6,7 +6,7 @@
 #    By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/19 16:18:45 by gmeoli           ###   ########.fr        #
+#    Updated: 2023/01/19 16:27:49 by gmeoli           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ all: $(NAME)
 bonus: $(NAMEBONUS)
 
 $(LIBFT):
-	$(MAKE) -C ./libft
+	@$(MAKE) -C ./libft
 
 $(NAME): $(LIBFT) $(MLX)
 	@gcc $(FLAGS) $(SRCS) $(LIBFT) $(MLX) $(COMPILER) -o $(NAME)
@@ -48,8 +48,6 @@ fclean:	clean
 	@printf "\033[1;91mRemoving objects...\n"
 
 re:			fclean all
-
-.PHONY:		all clean fclean re bonus
 
 vai: re
 	@./$(NAME)

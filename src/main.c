@@ -6,7 +6,7 @@
 /*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/19 16:20:51 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:51:55 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[])
 		data.win = mlx_new_window(data.mlx, data.map.width * 64, \
 			data.map.height * 64, "Play your game!");
 	}
-	else
-		return (ft_error("Invalid arguments\n"));
+	else 
+		ft_error("Error\nWrong number of arguments or wrong file name");
 	return (0);
 }
