@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+         #
+#    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/19 16:18:45 by gmeoli           ###   ########.fr        #
+#    Updated: 2023/01/19 18:06:31 by ebondi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT = ./libft/libft.a
 MLX = ./mlx/libmlx.a
 SRCSFLS = main.c check_map.c map.c read_map.c utils.c
 SRCS = $(addprefix src/, $(SRCSFLS))
-SRCSFLSBONUS = check_validity.c draw_line_texture.c fill_matrix.c free_all.c ft_doors.c ft_mouse.c game.c minimap.c minimap2.c parse_map.c various_inits.c init_and_utils.c init_and_utils2.c loops_move.c raycasting.c utils6.c utils2.c
+SRCSFLSBONUS =
 SRCSBONUS = $(addprefix bonus/src/, $(SRCSFLSBONUS))
 OBJS = $(SRCS:.c=.o)
 HDRS = cub3d.h
@@ -28,7 +28,7 @@ all: $(NAME)
 bonus: $(NAMEBONUS)
 
 $(LIBFT):
-	$(MAKE) -C ./libft
+	@$(MAKE) -C ./libft
 
 $(NAME): $(LIBFT) $(MLX)
 	@gcc $(FLAGS) $(SRCS) $(LIBFT) $(MLX) $(COMPILER) -o $(NAME)
