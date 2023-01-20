@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:46:48 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/19 16:21:57 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/01/20 13:48:06 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
+
+int	ft_skip_spaces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] == ' ' || (str[i] > 8 && str[i] < 14))
+		i++;
+	return (i);
+}
 
 int	ft_error(char *str)
 {

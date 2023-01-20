@@ -6,7 +6,7 @@
 #    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/20 12:14:05 by ebondi           ###   ########.fr        #
+#    Updated: 2023/01/20 13:49:35 by ebondi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,14 +45,14 @@ $(NAME): $(LIBFT) $(MLX) $(SRCS) $(GNLSRCS)
 #	@gcc $(FLAGS) $(SRCSBONUS) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAMEBONUS)
 
 clean:
-	@printf "\033[0;33mRemoving objects...\n"
+	@printf "\033[0;33mRemoving objects..."
 	@rm -f $(OBJS) $(GNLOBJS)
 	@make clean -C ./libft
 	@make clean -C ./mlx
 	@printf "\033[1;32mDone!\n"
 
 fclean:	clean
-	@printf "\033[1;91mRemoving executables...\n"
+	@printf "\033[1;91mRemoving executables..."
 	@rm -f $(NAME)
 #	@rm -f $(NAMEBONUS)
 	@make fclean -C ./libft
