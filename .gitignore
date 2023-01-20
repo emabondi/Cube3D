@@ -1,2 +1,5 @@
 .vscode
 .DS_Store
+**.o
+cub3d
+libft.a
