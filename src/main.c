@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/20 13:22:59 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/20 18:32:11 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void	ft_init_struct(t_data *data)
 {
-	data->mlx = mlx_init();
+	static t_map		map;
+	static t_images		images;
+
+	data->images = &images;
+	data->map = &map;
 	data->win = NULL;
 	data->images->north = NULL;
 	data->images->south = NULL;
@@ -36,10 +40,9 @@ int	main(int argc, char *argv[])
 		ft_init_struct(&data);
 		get_info(argv[1], &data);
 		// check_map(&data.map);
-		data.win = mlx_new_window(data.mlx, 64,  64, "Play your game!");
-		
+		//data.win = mlx_new_window(data.mlx, 64,  64, "Play your game!");
 	}
 	else 
-		ft_error("Error\nWrong number of arguments or wrong file name\n");
+		ft_error("Wrong number of arguments or wrong file name");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/20 13:26:32 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/20 19:56:38 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 typedef struct s_images {
 	//int	img_width;
 	//int	img_height;
-	char	*south;
-	char	*north;
-	char	*east;
-	char	*weast;
+	void	*south;
+	void	*north;
+	void	*east;
+	void	*weast;
 	int		*floor;
 	int		*ceiling;
 }	t_images;

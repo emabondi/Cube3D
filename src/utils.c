@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:46:48 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/20 13:48:06 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/20 17:29:22 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	ft_skip_spaces(char *str)
 
 int	ft_error(char *str)
 {
-	ft_putstr_fd(str, 2);
+	ft_putstr_fd("Error\n", 2);
+	ft_putendl_fd(str, 2);
 	exit(0);
 }
 
