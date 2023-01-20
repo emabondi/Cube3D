@@ -6,7 +6,7 @@
 #    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/19 18:56:14 by ebondi           ###   ########.fr        #
+#    Updated: 2023/01/20 12:14:05 by ebondi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,15 @@ LIBFT = ./libft/libft.a
 MLX = ./mlx/libmlx.a
 SRCSFLS = main.c check_map.c map.c utils.c
 SRCS = $(addprefix src/, $(SRCSFLS))
-GNLSRCS = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
-SRCSFLSBONUS =
-SRCSBONUS = $(addprefix bonus/src/, $(SRCSFLSBONUS))
-OBJS = $(SRCS:.c=.o)
-HDRS = cub3d.h
+OBJS = $(SRCSFLS:.c=.o)
+GNLFLS = get_next_line.c get_next_line_utils.c
+GNLSRCS = $(addprefix get_next_line/, $(GNLFLS))
+GNLOBJS = $(GNLFLS:.c=.o)
+#SRCSFLSBONUS =
+#SRCSBONUS = $(addprefix bonus/src/, $(SRCSFLSBONUS))
+#HDRS = cub3d.h
 FLAGS = -Wall -Werror -Wextra
-COMPILER = -l mlx -framework openGL -framework AppKit
+MLXFLAGS = -l mlx -framework openGL -framework AppKit
 
 all: $(NAME)
 
@@ -31,24 +33,32 @@ bonus: $(NAMEBONUS)
 $(LIBFT):
 	@$(MAKE) -C ./libft
 
-$(NAME): $(LIBFT) $(MLX)
-	@gcc $(FLAGS) $(SRCS) $(GNLSRCS) $(LIBFT) $(MLX) $(COMPILER) -o $(NAME)
+$(MLX):
+	@$(MAKE) -C ./mlx
+
+$(NAME): $(LIBFT) $(MLX) $(SRCS) $(GNLSRCS)
+	@gcc -c $(FLAGS) $(SRCS) $(GNLSRCS)
+	@gcc $(OBJS) $(GNLOBJS) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
 	@printf "\033[1;35mCub3D compiled!!\e[0m\n"
 
-$(NAMEBONUS): $(LIBFT) $(MLX)
-	@gcc $(FLAGS) $(SRCSBONUS) $(LIBFT) $(MLX) $(COMPILER) -o $(NAMEBONUS)
+#$(NAMEBONUS): $(LIBFT) $(MLX)
+#	@gcc $(FLAGS) $(SRCSBONUS) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAMEBONUS)
 
 clean:
-	@rm -f $(OBJS)
+	@printf "\033[0;33mRemoving objects...\n"
+	@rm -f $(OBJS) $(GNLOBJS)
 	@make clean -C ./libft
+	@make clean -C ./mlx
+	@printf "\033[1;32mDone!\n"
 
 fclean:	clean
+	@printf "\033[1;91mRemoving executables...\n"
 	@rm -f $(NAME)
-	@rm -f $(NAMEBONUS)
+#	@rm -f $(NAMEBONUS)
 	@make fclean -C ./libft
-	@printf "\033[1;91mRemoving objects...\n"
+	@printf "\033[1;32mDone!\n"
 
-re:			fclean all
+re:	fclean all
 
 vai: re
 	@./$(NAME)

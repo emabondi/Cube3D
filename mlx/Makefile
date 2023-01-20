@@ -18,9 +18,9 @@ $(NOM):	$(OBJ)
 	ranlib $(NOM)
 
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NOM)
+	@rm -f $(NOM)
 
 re: clean all
