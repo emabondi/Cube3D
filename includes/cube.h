@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/20 19:56:38 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/23 17:59:35 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct s_images {
 	void	*north;
 	void	*east;
 	void	*weast;
-	int		*floor;
-	int		*ceiling;
+	int		floor;
+	int		ceiling;
 }	t_images;
 
 typedef struct s_map {
@@ -47,11 +47,12 @@ typedef struct s_data {
 }	t_data;
 
 //utils
-int				ft_error(char *str);
-int				check_name(char *str);
-int				ft_skip_spaces(char *str);
+int		ft_error(char *str);
+int		check_name(char *str);
+int		ft_skip_spaces(char *str);
+int		map_at_eof(t_data *data);
 
 //map
-void			get_info(char *f, t_data *data);
+void	get_info(char *f, t_data *data);
 
 #endif

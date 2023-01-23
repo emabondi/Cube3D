@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/20 18:32:11 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/23 17:50:16 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_init_struct(t_data *data)
 	data->images->south = NULL;
 	data->images->east = NULL;
 	data->images->weast = NULL;
-	data->images->floor = NULL;
-	data->images->ceiling = NULL;
+	data->images->floor = -1;
+	data->images->ceiling = -1;
 	data->map->height = 0;
 	data->map->width = 0;
 	data->map->pov = 0;
