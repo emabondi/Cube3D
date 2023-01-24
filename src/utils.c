@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:46:48 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/23 17:59:02 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/24 19:30:43 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	map_at_eof(t_data *data)
 		return (1);
 	else
 		ft_error("Invalid line in file");
+	return (0);
 }
 
 int	ft_skip_spaces(char *str)

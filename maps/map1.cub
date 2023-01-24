@@ -1,7 +1,7 @@
-NO ./textures/blue.xpm
-SO ./textures/brick.xpm
-WE ./textures/grey.xpm
-EA ./textures/wood.xpm
+NO ./textures/bluestone.xpm
+SO ./textures/purplestone.xpm
+WE ./textures/mossy.xpm
+EA ./textures/eagle.xpm
 
 F 0,136,0
 C 0,255,255

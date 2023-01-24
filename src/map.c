@@ -6,16 +6,54 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/23 18:05:11 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/24 19:58:06 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
+void	check_rgb(char *str, int *rgb)
+{
+	int		i;
+	int		count;
+	char	**colors;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			count++;
+		else if (!ft_isdigit(str[i]) && str[i] != '\n' && str[i + 1] != '\0')
+			ft_error("Invalid digit rgb");
+		i++;
+	}
+	if (count != 2)
+		ft_error("Invalid count rgb");
+	colors = ft_split(str, ',');
+	i = 0;
+	while (colors[i] != NULL)
+	{
+		rgb[i] = ft_atoi(colors[i]);
+		if (rgb[i] < 0 || rgb[i] > 255)
+			ft_error("Invalid value rgb");
+		i++;
+	}
+}
+
 void	get_colors(char *str, t_data *data)
 {
-	return (r << 16) | (g << 8) | r;
-		ciao;
+	int		i;
+	int		color;
+	int		rgb[3];
+
+	i = ft_skip_spaces(str + 1) + 1;
+	check_rgb(str + i, rgb);
+	color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+	if (str[0] == 'F')
+		data->images->floor = color;
+	else
+		data->images->ceiling = color;
 }
 
 void	save_info(char *str, t_data *data)
@@ -67,6 +105,7 @@ void	parse_line(char *str, t_data *data)
 	}
 	else
 		ft_error("Invalid line in file");
+	printf("Colors: %d %d\n", data->images->ceiling, data->images->floor);
 }
 
 void	get_info(char *f, t_data *data)
