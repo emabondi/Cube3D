@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/24 19:58:06 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/25 15:10:35 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,33 @@ void	save_info(char *str, t_data *data)
 {
 	char	*str2;
 	int		i;
-	int		fd;
+	int		x;
+	void	*prova;
+	//int		fd;
 
 	str2 = ft_strchr(str, ' ');
-	i = ft_skip_spaces(str2);
-	fd = open(str2 + i, O_RDONLY);
-	if (!fd)
-		ft_error("Couldn't get the textures");
-	close(fd);
-	i = 128;
+	str2 += ft_skip_spaces(str2);
+	i = -1;
+	//while (str2[++i])
+	//	if (str2[i] == '\n')
+	//		str2[i] = '\0';
+	//fd = open(str2, O_RDONLY);
+	//if (!fd)
+	//	ft_error("Couldn't get the textures");
+	//close(fd);
+	x = 128;
+	prova = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
 	if (str[0] == 'N')
-		data->images->north = mlx_xpm_file_to_image(data->mlx, str2, &i, &i);
+		data->images->north = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
 	else if (str[0] == 'S')
-		data->images->south = mlx_xpm_file_to_image(data->mlx, str2, &i, &i);
+		data->images->south = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
 	else if (str[0] == 'E')
-		data->images->east = mlx_xpm_file_to_image(data->mlx, str2, &i, &i);
+		data->images->east = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
 	else if (str[0] == 'W')
-		data->images->weast = mlx_xpm_file_to_image(data->mlx, str2, &i, &i);
+		data->images->weast = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
+	//printf("prova: %p\n", data);
+	//printf("prova2: %p\n", prova);
+	//printf ("str:%s ass images: %p %p %p %p\n", str2, data->images->south, data->images->north, data->images->east, data->images->weast);
 }
 
 void	parse_line(char *str, t_data *data)

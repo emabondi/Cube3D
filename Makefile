@@ -6,7 +6,7 @@
 #    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/20 18:32:51 by ebondi           ###   ########.fr        #
+#    Updated: 2023/01/25 17:41:05 by ebondi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ fclean:	clean
 
 re:	fclean all
 
-vai: re
+vai: $(NAME)
 	@./$(NAME) maps/map1.cub
 
 leaks:
