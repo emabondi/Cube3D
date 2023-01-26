@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 15:46:48 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/25 11:08:08 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/26 16:43:41 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 int	map_at_eof(t_data *data)
 {
-	printf ("images: %p %p %p %p\n", data->images->south, data->images->north, data->images->east, data->images->weast);
-	if (data->images->south != NULL \
-		&& data->images->north != NULL \
-		&& data->images->east != NULL \
-		&& data->images->weast != NULL \
-		&& data->images->floor != -1 \
-		&& data->images->ceiling != -1)
+	if (data->north != NULL \
+		&& data->south != NULL \
+		&& data->west != NULL \
+		&& data->east != NULL \
+		&& data->floor != -1 \
+		&& data->ceiling != -1)
 		return (1);
 	else
 		ft_error("Invalid line in file");

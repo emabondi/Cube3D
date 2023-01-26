@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/25 15:10:35 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/26 16:54:15 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,42 +51,27 @@ void	get_colors(char *str, t_data *data)
 	check_rgb(str + i, rgb);
 	color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 	if (str[0] == 'F')
-		data->images->floor = color;
+		data->floor = color;
 	else
-		data->images->ceiling = color;
+		data->ceiling = color;
 }
 
-void	save_info(char *str, t_data *data)
+t_images	*save_info(char *str, t_data *data, t_images *check)
 {
-	char	*str2;
-	int		i;
-	int		x;
-	void	*prova;
-	//int		fd;
+	char		*str2;
+	t_images	*ret;
 
+	if (check != NULL)
+		ft_error("Double definition of texture");
 	str2 = ft_strchr(str, ' ');
 	str2 += ft_skip_spaces(str2);
-	i = -1;
-	//while (str2[++i])
-	//	if (str2[i] == '\n')
-	//		str2[i] = '\0';
-	//fd = open(str2, O_RDONLY);
-	//if (!fd)
-	//	ft_error("Couldn't get the textures");
-	//close(fd);
-	x = 128;
-	prova = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
-	if (str[0] == 'N')
-		data->images->north = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
-	else if (str[0] == 'S')
-		data->images->south = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
-	else if (str[0] == 'E')
-		data->images->east = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
-	else if (str[0] == 'W')
-		data->images->weast = mlx_xpm_file_to_image(data->mlx, str2, &x, &x);
-	//printf("prova: %p\n", data);
-	//printf("prova2: %p\n", prova);
-	//printf ("str:%s ass images: %p %p %p %p\n", str2, data->images->south, data->images->north, data->images->east, data->images->weast);
+	ret = malloc(sizeof(t_images));
+	ret->ptr = mlx_xpm_file_to_image(data->mlx, str2, &ret->width, &ret->height);
+	if (!ret->ptr)
+		ft_error("Unvalid texture");
+		ret->addr = mlx_get_data_addr(ret->ptr, &ret->bpp,
+			&ret->line_length, &ret->endian);
+	return (ret);
 }
 
 void	parse_line(char *str, t_data *data)
@@ -96,11 +81,14 @@ void	parse_line(char *str, t_data *data)
 
 	i = ft_skip_spaces(str);
 	printf("%s", str + i);
-	if (!ft_strncmp(str + i, "NO ", 3) \
-		|| !ft_strncmp(str + i, "SO ", 3) \
-		|| !ft_strncmp(str + i, "WE ", 3) \
-		|| !ft_strncmp(str + i, "EA ", 3))
-		save_info(str + i, data);
+	if (!ft_strncmp(str + i, "NO ", 3))
+		data->north = save_info(str + i, data, data->north);
+	else if (!ft_strncmp(str + i, "SO ", 3))
+		data->south = save_info(str + i, data, data->south);
+	else if (!ft_strncmp(str + i, "WE ", 3))
+		data->west = save_info(str + i, data, data->west);
+	else if (!ft_strncmp(str + i, "EA ", 3))
+		data->east = save_info(str + i, data, data->east);
 	else if (!ft_strncmp(str + i, "F ", 2) \
 		|| !ft_strncmp(str + i, "C ", 2))
 		get_colors(str + i, data);
@@ -108,14 +96,14 @@ void	parse_line(char *str, t_data *data)
 		return ;
 	else if (str[i] == '1' && map_at_eof(data))
 	{
-		data->map->height++;
+		data->map.height++;
 		len = ft_strlen(str);
-		if (len > data->map->width)
-			data->map->width = len;
+		if (len > data->map.width)
+			data->map.width = len;
 	}
 	else
 		ft_error("Invalid line in file");
-	printf("Colors: %d %d\n", data->images->ceiling, data->images->floor);
+	printf("Colors: %d %d\n", data->ceiling, data->floor);
 }
 
 void	get_info(char *f, t_data *data)
