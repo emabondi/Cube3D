@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/26 16:43:12 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/01/26 17:13:13 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[])
 {
 	t_data	data;
 
-	if (argc != 2 && check_name(argv[1]))
+	if (argc != 2 || check_name(argv[1]))
 		ft_error("Wrong number of arguments or wrong file name");
 	ft_init_struct(&data);
 	init_window(&data);
