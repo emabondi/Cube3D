@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/26 17:15:55 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:16:49 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	check_rgb(char *str, int *rgb)
 		i++;
 	}
 	if (count != 2)
-		ft_error("Invalid count rgb");
+		ft_error("Invalid rgb");
 	colors = ft_split(str, ',');
 	i = 0;
 	while (colors[i] != NULL)
@@ -60,12 +60,17 @@ t_images	*save_info(char *str, t_data *data, t_images *check)
 {
 	char		*str2;
 	t_images	*ret;
+	int fd;
 
 	if (check != NULL)
 		ft_error("Double definition of texture");
 	str2 = ft_strchr(str, ' ');
 	str2 += ft_skip_spaces(str2);
 	ret = malloc(sizeof(t_images));
+	str2[ft_strlen(str2) - 1] = '\0';
+	fd = open(str2, O_RDONLY);
+	if (fd == -1)
+		ft_error("Error: No such file or directory\n");
 	ret->ptr = mlx_xpm_file_to_image(data->mlx, str2, &ret->width, &ret->height);
 	if (!ret->ptr)
 		ft_error("Unvalid texture");
@@ -79,8 +84,8 @@ void	parse_line(char *str, t_data *data)
 	int	i;
 	int	len;
 
+	printf("%s", str);
 	i = ft_skip_spaces(str);
-	printf("%s", str + i);
 	if (!ft_strncmp(str + i, "NO ", 3))
 		data->north = save_info(str + i, data, data->north);
 	else if (!ft_strncmp(str + i, "SO ", 3))
@@ -103,7 +108,6 @@ void	parse_line(char *str, t_data *data)
 	}
 	else
 		ft_error("Invalid line in file");
-	printf("Colors: %d %d\n", data->ceiling, data->floor);
 }
 
 void	get_info(char *f, t_data *data)
@@ -124,7 +128,6 @@ void	get_info(char *f, t_data *data)
 		str = get_next_line(fd);
 		lines++;
 	}
-	//printf("%d %d\n", data->map->height, data->map->width);
 	close(fd);
-	//get_map(data, f, lines);
+	get_map(data, f, lines);
 }

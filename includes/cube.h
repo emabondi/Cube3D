@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/26 16:40:41 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:17:05 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ int		map_at_eof(t_data *data);
 
 //map
 void	get_info(char *f, t_data *data);
+void	get_map(t_data *data, char *f, int lines);
 
 #endif

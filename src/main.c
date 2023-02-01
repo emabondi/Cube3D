@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/01/26 17:13:13 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/02/01 15:49:56 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	init_window(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, \
-		data->w_width, data->w_height, "Cub3D");
+	//data->win = mlx_new_window(data->mlx, \
+	//	data->w_width, data->w_height, "Cub3D");
+	
 }
 
 void	ft_init_struct(t_data *data)
@@ -45,6 +46,5 @@ int	main(int argc, char *argv[])
 	init_window(&data);
 	get_info(argv[1], &data);
 	// check_map(&data.map);
-	//data.win = mlx_new_window(data.mlx, 64,  64, "Play your game!");
 	return (0);
 }
