@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/02 15:06:59 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/02 17:59:37 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	parse_line(char *str, t_data *data)
 	int	i;
 	int	len;
 
-	printf("%s\n", str);
 	i = ft_skip_spaces(str);
 	if (!ft_strncmp(str + i, "NO ", 3))
 		data->north = save_info(str + i, data, data->north);

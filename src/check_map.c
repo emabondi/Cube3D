@@ -6,48 +6,42 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/02/02 15:36:06 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/02 18:00:15 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-//void	check_zero(char **matrix, int *i, int *j)
-//{
-
-//	//printf("ei i:%d j:%d height:%d, width:%d\n", *i, *j, );
-//	//usleep(100);
-//	//if (matrix[(*i) - 1][(*j)] == 0 || matrix[(*i) - 1][(*j)] == ' '
-//	//	|| matrix[(*i)][(*j) - 1] == 0 || matrix[(*i)][(*j) - 1] == ' '
-//	//	|| matrix[(*i) + 1][(*j)] == 0 || matrix[(*i) + 1][(*j)] == ' '
-//	//	|| matrix[(*i)][(*j) + 1] == 0 || matrix[(*i)][(*j) + 1] == ' ')
-//	//	ft_error("Unclosed map");
-//}
+void	check_zero(char **matrix, int i, int j)
+{
+	if (matrix[(i) - 1][(j)] == 0 || matrix[(i) - 1][(j)] == ' '
+		|| matrix[(i)][(j) - 1] == 0 || matrix[(i)][(j) - 1] == ' '
+		|| matrix[(i) + 1][(j)] == 0 || matrix[(i) + 1][(j)] == ' '
+		|| matrix[(i)][(j) + 1] == 0 || matrix[(i)][(j) + 1] == ' ')
+		ft_error("Unclosed map");
+}
 
 void	check_map(t_map *map)
 {
-	int i;
+	int	i;
 	int	j;
 
-	i = -1;
-	while (map->matrix[++i] != NULL)
+	i = 0;
+	while (map->matrix[i] != NULL)
 	{
-		j = -1;
-		while (map->matrix[i][++j] != '\0')
+		j = 0;
+		while (map->matrix[i][j] != '\0')
 		{
-			//printf("\n\nciao: %d j: %d %c\n\n", map->height,j , map->matrix[i][j]);
-			
 			if (map->matrix[i][j] == '0' && (i == 0 || i == map->height - 1 \
 				|| j == 0 || j == map->width - 1))
 				ft_error("Border map error");
 			else if (map->matrix[i][j] == '0')
-			{
-				//printf("ei i:%d j:%d height:%d, width:%d\n", i, j, map->height, map->width);
-				//sleep(1);
-				check_zero(map->matrix, &i, &j);
-			}
+				check_zero(map->matrix, i, j);
+			j++;
 		}
+		i++;
 	}
+	write(1, "tutto ok\n", 9);
 }
 
 void	check_pov(t_data *data, char c)
@@ -67,13 +61,13 @@ void	ft_malloc_map(t_data *data, int fd)
 	int		j;
 	char	*buff;
 
-	data->map.matrix = (char **) malloc(sizeof(char *) * data->map.height);
+	data->map.matrix = (char **) malloc(sizeof(char *) * data->map.height + 1);
 	data->map.matrix[data->map.height] = NULL;
 	i = -1;
 	while (++i < data->map.height)
 	{
-		data->map.matrix[i] = (char *) malloc(sizeof(char) * data->map.width);
-		ft_bzero(data->map.matrix[i], data->map.width);
+		data->map.matrix[i] = (char *) malloc(sizeof(char) * data->map.width + 1);
+		ft_memset(data->map.matrix[i], '\0', data->map.width + 1);
 	}
 	i = -1;
 	while (++i < data->map.height)
