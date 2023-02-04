@@ -6,7 +6,7 @@
 #    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/01/25 17:41:05 by ebondi           ###   ########.fr        #
+#    Updated: 2023/02/04 19:07:08 by ebondi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 NAMEBONUS = cub3D_bonus
 LIBFT = ./libft/libft.a
 MLX = ./mlx/libmlx.a
-SRCSFLS = main.c check_map.c map.c utils.c
+SRCSFLS = main.c check_map.c map.c utils.c events.c draw.c
 SRCS = $(addprefix src/, $(SRCSFLS))
 OBJS = $(SRCSFLS:.c=.o)
 GNLFLS = get_next_line.c get_next_line_utils.c
@@ -38,7 +38,7 @@ $(MLX):
 
 $(NAME): $(LIBFT) $(MLX) $(SRCS) $(GNLSRCS)
 	@gcc -c $(FLAGS) $(SRCS) $(GNLSRCS)
-	@gcc $(OBJS) $(GNLOBJS) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
+	@gcc -g $(OBJS) $(GNLOBJS) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
 	@printf "\033[1;35mCub3D compiled!!\e[0m\n"
 
 #$(NAMEBONUS): $(LIBFT) $(MLX)
@@ -64,6 +64,6 @@ vai: $(NAME)
 	@./$(NAME) maps/map1.cub
 
 leaks:
-	@leaks --atExit -- ./$(NAME)
+	@leaks --atExit -- ./$(NAME) maps/map1.cub
 
 .PHONY:	all clean fclean re bonus vai leaks

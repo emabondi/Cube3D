@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/02 17:59:37 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/04 20:11:30 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	check_rgb(char *str, int *rgb)
 			ft_error("Invalid value rgb");
 		i++;
 	}
+	free_matrix(colors);
 }
 
 void	get_colors(char *str, t_data *data)
@@ -56,25 +57,25 @@ void	get_colors(char *str, t_data *data)
 		data->ceiling = color;
 }
 
-t_images	*save_info(char *str, t_data *data, t_images *check)
+t_textures	*save_info(char *str, t_data *data, t_textures *check)
 {
 	char		*str2;
-	t_images	*ret;
-	int fd;
+	t_textures	*ret;
+	int			fd;
 
 	if (check != NULL)
 		ft_error("Double definition of texture");
 	str2 = ft_strchr(str, ' ');
-	str2 += ft_skip_spaces(str2);
-	ret = malloc(sizeof(t_images));
 	str2[ft_strlen(str2) - 1] = '\0';
+	str2 += ft_skip_spaces(str2);
+	ret = malloc(sizeof(t_textures));
 	fd = open(str2, O_RDONLY);
 	if (fd == -1)
 		ft_error("Error: No such file or directory\n");
 	ret->ptr = mlx_xpm_file_to_image(data->mlx, str2, &ret->width, &ret->height);
 	if (!ret->ptr)
 		ft_error("Unvalid texture");
-		ret->addr = mlx_get_data_addr(ret->ptr, &ret->bpp,
+	ret->addr = mlx_get_data_addr(ret->ptr, &ret->bpp,
 			&ret->line_length, &ret->endian);
 	return (ret);
 }
@@ -129,6 +130,7 @@ void	get_info(char *f, t_data *data)
 		str = get_next_line(fd);
 		lines++;
 	}
+	//free(str);
 	close(fd);
 	get_map(data, f, lines);
 }

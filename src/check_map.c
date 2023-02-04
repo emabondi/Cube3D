@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/02/02 18:00:15 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/03 12:41:16 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	get_map(t_data *data, char *f, int lines)
 		free (buff);
 		buff = get_next_line(fd);
 	}
+	free(buff);
 	ft_malloc_map(data, fd);
 	close(fd);
 }

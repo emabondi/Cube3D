@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/02 14:29:29 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/04 20:12:23 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 # include <math.h>
 # include "../mlx/mlx.h"
 
-typedef struct s_images {
+typedef struct s_textures {
 	void	*ptr;
-	void	*addr;
+	char	*addr;
 	int		bpp;
 	int		line_length;
 	int		endian;
 	int		width;
 	int		height;
-}	t_images;
+}	t_textures;
 
 typedef struct s_map {
 	int			width;
@@ -39,18 +39,18 @@ typedef struct s_map {
 }	t_map;
 
 typedef struct s_data {
-	t_images	*north;
-	t_images	*south;
-	t_images	*west;
-	t_images	*east;
-	//t_images	*door;
+	t_textures	*north;
+	t_textures	*south;
+	t_textures	*west;
+	t_textures	*east;
+	//t_textures	*door;
 	void		*mlx;
 	void		*win;
 	int			w_height;
 	int			w_width;
 	int			floor;
 	int			ceiling;
-	t_images	images;
+	t_textures	*images; //puttana
 	t_map		map;
 }	t_data;
 
@@ -59,10 +59,14 @@ int		ft_error(char *str);
 int		check_name(char *str);
 int		ft_skip_spaces(char *str);
 int		map_at_eof(t_data *data);
+void	free_matrix(char **mat);
 
 //map
 void	get_info(char *f, t_data *data);
 void	get_map(t_data *data, char *f, int lines);
 void	check_map(t_map *map);
+
+//events
+int		mouse_exit(t_data *data);
 
 #endif
