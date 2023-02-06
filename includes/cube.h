@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/04 20:12:23 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/06 18:14:58 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,14 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../mlx/mlx.h"
+
+typedef struct s_image {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_image;
 
 typedef struct s_textures {
 	void	*ptr;
@@ -50,7 +58,7 @@ typedef struct s_data {
 	int			w_width;
 	int			floor;
 	int			ceiling;
-	t_textures	*images; //puttana
+	t_image		*minimap;
 	t_map		map;
 }	t_data;
 
@@ -68,5 +76,9 @@ void	check_map(t_map *map);
 
 //events
 int		mouse_exit(t_data *data);
+
+//draw
+int		draw(t_data *data);
+void	my_pixel_put(t_image *image, int x, int y, int color);
 
 #endif

@@ -6,13 +6,24 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/04 19:03:50 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/06 22:09:09 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-void	window_and_events(t_data *data)
+t_image	*init_image(void *mlx, int width, int height)
+{
+	t_image	*new;
+
+	new = malloc(sizeof(t_image));
+	new->img = mlx_new_image(mlx, width, height);
+	new->addr = mlx_get_data_addr(new->img, &new->bits_per_pixel, \
+		&new->line_length, &new->endian);
+	return (new);
+}
+
+void	window_images_events(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, \
@@ -20,7 +31,9 @@ void	window_and_events(t_data *data)
 	//mlx_hook(data->mlx.mlx_win, 2, 0, press, rules);
 	//mlx_hook(data->mlx.mlx_win, 3, 0, release, rules);
 	//mlx_do_key_autorepeaton(data->mlx);
-	mlx_hook(data->win , 17, 0, mouse_exit, data);
+	data->minimap = init_image(data->mlx, data->w_width, data->w_height);
+	//mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 0, 0);
+	mlx_hook(data->win, 17, 0, mouse_exit, data);
 }
 
 void	ft_init_struct(t_data *data)
@@ -48,8 +61,8 @@ int	main(int argc, char *argv[])
 	ft_init_struct(&data);
 	get_info(argv[1], &data);
 	check_map(&data.map);
-	window_and_events(&data);
-	//mlx_loop_hook(data.mlx, draw, &data);
+	window_images_events(&data);
+	mlx_loop_hook(data.mlx, draw, &data);
 	mlx_loop(data.mlx);
 	free_matrix(data.map.matrix);
 	exit (0);
