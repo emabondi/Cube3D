@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/02/03 12:41:16 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/07 18:06:33 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,37 @@ void	check_map(t_map *map)
 			if (map->matrix[i][j] == '0' && (i == 0 || i == map->height - 1 \
 				|| j == 0 || j == map->width - 1))
 				ft_error("Border map error");
-			else if (map->matrix[i][j] == '0')
+			else if (map->matrix[i][j] == '0' || map->matrix[i][j] == 'N'\
+				|| map->matrix[i][j] == 'S' || map->matrix[i][j] == 'E' \
+				|| map->matrix[i][j] == 'W')
 				check_zero(map->matrix, i, j);
 			j++;
 		}
 		i++;
 	}
+	if (map->pov == -1)
+		ft_error("Missing player");
+	//printf ("x:%f y:%f pov:%d", map->x, map->y, map->pov);
 	write(1, "tutto ok\n", 9);
 }
 
-void	check_pov(t_data *data, char c)
+void	check_pov(t_map *map, char c, int i, int j)
 {
 	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
 	{
-		if (data->map.pov != 0)
+		if (map->pov != -1)
 			ft_error("Double player");
-		else
-			data->map.pov = c;
+		else if (c == 'N')
+			map->pov = 0;
+		else if (c == 'E')
+			map->pov = 90;
+		else if (c == 'S')
+			map->pov = 180;
+		else if (c == 'N')
+			map->pov = 270;
+		map->x = j;
+		map->y = i;
+		map->matrix[i][j] = '0';
 	}
 }
 
@@ -76,7 +90,7 @@ void	ft_malloc_map(t_data *data, int fd)
 		j = 0;
 		while (buff[j] != '\0' && buff[j] != '\n')
 		{
-			check_pov(data, buff[j]);
+			check_pov(&data->map, buff[j], i, j);
 			data->map.matrix[i][j] = buff[j];
 			j++;
 		}

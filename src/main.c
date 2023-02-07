@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/06 22:09:09 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/07 18:04:57 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_init_struct(t_data *data)
 	data->ceiling = -1;
 	data->map.height = 0;
 	data->map.width = 0;
-	data->map.pov = 0;
+	data->map.pov = -1;
 }
 
 int	main(int argc, char *argv[])

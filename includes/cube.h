@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/06 18:14:58 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/07 18:01:39 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ typedef struct s_map {
 	int			width;
 	int			height;
 	char		**matrix;
-	char		pov;
+	int			pov;
+	float		x;
+	float		y;
 }	t_map;
 
 typedef struct s_data {
