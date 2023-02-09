@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/07 21:07:02 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/09 20:04:48 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,26 @@ void	draw_circle(t_image *image, int x, int y)
 	int	i;
 	int	j;
 	int	o;
+	int tot;
 
 	i = -1;
-	o = 0;
-	while (++i < 8)
+	o = 2;
+	while (++i < 7)
 	{
-		j = -1;
-		while (++j < 8)
+		j = 0;
+		tot = 7 - (o * 2);
+		while (j < o)
+			j++;
+		while (tot > 0)
 		{
-			if ((j > 4 - o) && (j < 4 + o))
-				my_pixel_put(image, x * 10 + j + 10 , y * 10 + i + 10, 200);
+			my_pixel_put(image, x * 10 + j + 11, y * 10 + i + 11, 200);
+			j++;
+			tot--;
 		}
-		if (i < 4)
-			o++;
-		else
+		if (i < 2)
 			o--;
+		else if (i > 3)
+			o++;
 	}
 }
 
@@ -70,11 +75,11 @@ void	draw_minimap(t_map *map, t_image *image)
 		{
 			if (map->matrix[i][j] == '1')
 				draw_square(image, j, i);
-			else if ((map->x - (float)j > 0) && (map->x - (float)j < 0.5) && (map->y - (float)i > 0) && (map->y - (float)i < 0.5))
+			else if ((j > map->x - 0.5) && (j < map->x + 0.5) && (i > map->y - 0.5) && (i < map->y + 0.5))
 				draw_circle(image, j, i);
-				//my_pixel_put(image, j * 10 + 10 , i * 10 + 10, 200);
 		}
 	}
+	//ft_putstr_fd("ESCO\n", 1);
 }
 
 int	draw(t_data *data)
@@ -82,6 +87,7 @@ int	draw(t_data *data)
 	//draw_game();
 	draw_minimap(&data->map, data->minimap);
 	mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 0, 0);
+	//mlx_destroy_image(data->mlx, data->minimap->img);
 	//sleep(3);
 	//mlx_clear_window(data->mlx, data->win);
 	return (0);

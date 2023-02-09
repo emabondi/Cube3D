@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/07 18:01:39 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/09 20:05:15 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,17 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
-# include "../mlx/mlx.h"
+//# include "../mlx/mlx.h"
+#include <mlx.h>
+
+//keypress
+# define W		13
+# define A		0
+# define S		1
+# define D		2
+# define LEFT	123
+# define RIGHT	124
+# define ESC	53
 
 typedef struct s_image {
 	void	*img;
@@ -46,6 +56,10 @@ typedef struct s_map {
 	int			pov;
 	float		x;
 	float		y;
+	//int			mov[4];
+	//int			a;
+	//int			s;
+	//int			d;
 }	t_map;
 
 typedef struct s_data {
@@ -78,6 +92,8 @@ void	check_map(t_map *map);
 
 //events
 int		mouse_exit(t_data *data);
+int		ft_on(int keycode, t_data *data);
+int		ft_off(int keycode, t_data *data);
 
 //draw
 int		draw(t_data *data);

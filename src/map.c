@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/04 20:11:30 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/09 19:25:52 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,21 @@ t_textures	*save_info(char *str, t_data *data, t_textures *check)
 {
 	char		*str2;
 	t_textures	*ret;
-	int			fd;
+	//int			fd;
 
 	if (check != NULL)
 		ft_error("Double definition of texture");
 	str2 = ft_strchr(str, ' ');
 	str2[ft_strlen(str2) - 1] = '\0';
 	str2 += ft_skip_spaces(str2);
-	ret = malloc(sizeof(t_textures));
-	fd = open(str2, O_RDONLY);
-	if (fd == -1)
-		ft_error("Error: No such file or directory\n");
+	ret = (t_textures *)malloc(sizeof(t_textures));
+	//fd = open(str2, O_RDONLY);
+	//if (fd == -1)
+	//	ft_error("Error: No such file or directory\n");
+	//close (fd);
+	ft_putstr_fd(str2 , 1);
 	ret->ptr = mlx_xpm_file_to_image(data->mlx, str2, &ret->width, &ret->height);
+	ft_putstr_fd("fanculo\n", 1);
 	if (!ret->ptr)
 		ft_error("Unvalid texture");
 	ret->addr = mlx_get_data_addr(ret->ptr, &ret->bpp,
@@ -98,7 +101,9 @@ void	parse_line(char *str, t_data *data)
 		|| !ft_strncmp(str + i, "C ", 2))
 		get_colors(str + i, data);
 	else if (str[0] == '\n')
-		return ;
+	{
+		ft_putstr_fd("fanculo\n", 1);
+		return ;}
 	else if (str[i] == '1' && map_at_eof(data))
 	{
 		data->map.height++;
