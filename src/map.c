@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/09 19:25:52 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/15 15:55:20 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,15 @@ t_textures	*save_info(char *str, t_data *data, t_textures *check)
 	if (check != NULL)
 		ft_error("Double definition of texture");
 	str2 = ft_strchr(str, ' ');
-	str2[ft_strlen(str2) - 1] = '\0';
 	str2 += ft_skip_spaces(str2);
+	str2[ft_strlen(str2) - 1] = '\0';
 	ret = (t_textures *)malloc(sizeof(t_textures));
 	//fd = open(str2, O_RDONLY);
 	//if (fd == -1)
 	//	ft_error("Error: No such file or directory\n");
 	//close (fd);
 	ft_putstr_fd(str2 , 1);
+	ft_putstr_fd("fanculoprima\n", 1);
 	ret->ptr = mlx_xpm_file_to_image(data->mlx, str2, &ret->width, &ret->height);
 	ft_putstr_fd("fanculo\n", 1);
 	if (!ret->ptr)
@@ -106,12 +107,12 @@ void	parse_line(char *str, t_data *data)
 		return ;}
 	else if (str[i] == '1' && map_at_eof(data))
 	{
-		data->map.height++;
+		data->height++;
 		len = ft_strlen(str);
 		if (ft_strchr(str, '\n') != NULL)
 			len--;
-		if (len > data->map.width)
-			data->map.width = len;
+		if (len > data->width)
+			data->width = len;
 	}
 	else
 		ft_error("Invalid line in file");

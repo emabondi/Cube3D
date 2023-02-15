@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/09 19:42:36 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:14:30 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_on(int keycode, t_data *data)
 	//if (keycode == ESC)
 	//	mouse_exit(data);
 	if (keycode == W)
-		data->map.y += 0.5;
+		data->y += 0.1;
 	//if (keycode == A)
 	//	data->map.mov[1] = 1;
 	//if (keycode == S)
@@ -39,7 +39,7 @@ int	ft_on(int keycode, t_data *data)
 	//	data->map.left = 1;
 	//if (keycode == RIGHT)
 	//	data->map.right = 1;
-	printf ("y:%f\n", data->map.y);
+	printf ("y:%f\n", data->y);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/09 20:05:15 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:08:20 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,14 @@ typedef struct s_textures {
 	int		height;
 }	t_textures;
 
-typedef struct s_map {
-	int			width;
-	int			height;
-	char		**matrix;
-	int			pov;
-	float		x;
-	float		y;
-	//int			mov[4];
-	//int			a;
-	//int			s;
-	//int			d;
-}	t_map;
+//typedef struct s_map {
+//	int			width;
+//	int			height;
+//	char		**matrix;
+//	int			pov;
+//	float		x;
+//	float		y;
+//}	t_map;
 
 typedef struct s_data {
 	t_textures	*north;
@@ -74,8 +70,15 @@ typedef struct s_data {
 	int			w_width;
 	int			floor;
 	int			ceiling;
+
+	//map
+	int			width;
+	int			height;
+	char		**matrix;
+	int			pov;
+	float		x;
+	float		y;
 	t_image		*minimap;
-	t_map		map;
 }	t_data;
 
 //utils
@@ -88,7 +91,7 @@ void	free_matrix(char **mat);
 //map
 void	get_info(char *f, t_data *data);
 void	get_map(t_data *data, char *f, int lines);
-void	check_map(t_map *map);
+void	check_map(t_data *map);
 
 //events
 int		mouse_exit(t_data *data);

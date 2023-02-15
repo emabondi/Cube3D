@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/09 20:04:48 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:49:48 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_pixel_put(t_image *image, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	draw_square(t_image *image, int x, int y)
+void	draw_square(t_image *image, int x, int y, int c)
 {
 	int	i;
 	int	j;
@@ -30,7 +30,7 @@ void	draw_square(t_image *image, int x, int y)
 	{
 		j = -1;
 		while (++j < 10)
-			my_pixel_put(image, x * 10 + j + 10 , y * 10 + i + 10, 255);
+			my_pixel_put(image, x * 10 + j + 10 , y * 10 + i + 10, c);
 	}
 }
 
@@ -51,7 +51,7 @@ void	draw_circle(t_image *image, int x, int y)
 			j++;
 		while (tot > 0)
 		{
-			my_pixel_put(image, x * 10 + j + 11, y * 10 + i + 11, 200);
+			my_pixel_put(image, x * 10 + j + 11, y * 10 + i + 11, 16449536);
 			j++;
 			tot--;
 		}
@@ -62,7 +62,7 @@ void	draw_circle(t_image *image, int x, int y)
 	}
 }
 
-void	draw_minimap(t_map *map, t_image *image)
+void	draw_minimap(t_data *map, t_image *image)
 {
 	int	i;
 	int	j;
@@ -74,9 +74,11 @@ void	draw_minimap(t_map *map, t_image *image)
 		while (map->matrix[i][++j] != '\0')
 		{
 			if (map->matrix[i][j] == '1')
-				draw_square(image, j, i);
+				draw_square(image, j, i, 200);
 			else if ((j > map->x - 0.5) && (j < map->x + 0.5) && (i > map->y - 0.5) && (i < map->y + 0.5))
 				draw_circle(image, j, i);
+			else
+				draw_square(image, j, i, 0);
 		}
 	}
 	//ft_putstr_fd("ESCO\n", 1);
@@ -85,10 +87,7 @@ void	draw_minimap(t_map *map, t_image *image)
 int	draw(t_data *data)
 {
 	//draw_game();
-	draw_minimap(&data->map, data->minimap);
+	draw_minimap(data, data->minimap);
 	mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 0, 0);
-	//mlx_destroy_image(data->mlx, data->minimap->img);
-	//sleep(3);
-	//mlx_clear_window(data->mlx, data->win);
 	return (0);
 }

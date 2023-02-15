@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/02/08 21:14:57 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/15 15:50:51 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_zero(char **matrix, int i, int j)
 		ft_error("Unclosed map");
 }
 
-void	check_map(t_map *map)
+void	check_map(t_data *map)
 {
 	int	i;
 	int	j;
@@ -49,7 +49,7 @@ void	check_map(t_map *map)
 	write(1, "tutto ok\n", 9);
 }
 
-void	check_pov(t_map *map, char c, int i, int j)
+void	check_pov(t_data *map, char c, int i, int j)
 {
 	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
 	{
@@ -75,23 +75,23 @@ void	ft_malloc_map(t_data *data, int fd)
 	int		j;
 	char	*buff;
 
-	data->map.matrix = (char **) malloc(sizeof(char *) * data->map.height + 1);
-	data->map.matrix[data->map.height] = NULL;
+	data->matrix = (char **) malloc(sizeof(char *) * data->height + 1);
+	data->matrix[data->height] = NULL;
 	i = -1;
-	while (++i < data->map.height)
+	while (++i < data->height)
 	{
-		data->map.matrix[i] = (char *) malloc(sizeof(char) * data->map.width + 1);
-		ft_memset(data->map.matrix[i], '\0', data->map.width + 1);
+		data->matrix[i] = (char *) malloc(sizeof(char) * data->width + 1);
+		ft_memset(data->matrix[i], '\0', data->width + 1);
 	}
 	i = -1;
-	while (++i < data->map.height)
+	while (++i < data->height)
 	{
 		buff = get_next_line(fd);
 		j = 0;
 		while (buff[j] != '\0' && buff[j] != '\n')
 		{
-			check_pov(&data->map, buff[j], i, j);
-			data->map.matrix[i][j] = buff[j];
+			check_pov(data, buff[j], i, j);
+			data->matrix[i][j] = buff[j];
 			j++;
 		}
 		free(buff);
@@ -108,7 +108,7 @@ void	get_map(t_data *data, char *f, int lines)
 	if (fd == -1)
 		ft_error("No such file or directory");
 	buff = get_next_line(fd);
-	i = lines - data->map.height;
+	i = lines - data->height;
 	while (--i > 1)
 	{
 		free (buff);
