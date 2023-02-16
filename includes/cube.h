@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/15 16:08:20 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/16 12:39:27 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 //# include "../mlx/mlx.h"
 #include <mlx.h>
 
+# define PI		3.14159265359
 //keypress
 # define W		13
 # define A		0
@@ -76,6 +77,8 @@ typedef struct s_data {
 	int			height;
 	char		**matrix;
 	int			pov;
+	int			fov;
+	int			half_fov;
 	float		x;
 	float		y;
 	t_image		*minimap;
@@ -101,5 +104,7 @@ int		ft_off(int keycode, t_data *data);
 //draw
 int		draw(t_data *data);
 void	my_pixel_put(t_image *image, int x, int y, int color);
+void	draw_square(t_image *image, int x, int y, int c);
+void	draw_circle(t_image *image, int x, int y);
 
 #endif
