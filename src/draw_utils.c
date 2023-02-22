@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:17:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/16 13:44:50 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/22 17:20:13 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	draw_square(t_image *image, int x, int y, int c)
 	{
 		j = -1;
 		while (++j < 10)
-			my_pixel_put(image, x * 10 + j + 10 , y * 10 + i + 10, c);
+			my_pixel_put(image, x * 10 + j , y * 10 + i, c);
 	}
 }
 
@@ -51,7 +51,7 @@ void	draw_circle(t_image *image, int x, int y)
 			j++;
 		while (tot > 0)
 		{
-			my_pixel_put(image, x * 10 + j + 11, y * 10 + i + 11, 16449536);
+			my_pixel_put(image, x * 10 + j, y * 10 + i, 16449536);
 			j++;
 			tot--;
 		}

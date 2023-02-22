@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/16 12:39:27 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/22 16:56:58 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_data {
 	int			width;
 	int			height;
 	char		**matrix;
-	int			pov;
+	double			pov;
 	int			fov;
 	int			half_fov;
 	float		x;

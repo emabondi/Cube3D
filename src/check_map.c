@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/02/16 10:52:56 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/22 17:30:11 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	check_pov(t_data *map, char c, int i, int j)
 			map->pov = 90;
 		else if (c == 'W')
 			map->pov = 180;
-		map->x = j;
-		map->y = i;
+		map->x = j + 0.4;
+		map->y = i ;
 		map->matrix[i][j] = '0';
 	}
 }
