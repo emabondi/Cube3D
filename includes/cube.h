@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/23 14:35:05 by frudello         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:25:43 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	check_map(t_data *map);
 //events
 int		mouse_exit(t_data *data);
 int		ft_on(int keycode, t_data *data);
-int		ft_off(int keycode, t_data *data);
+//int		ft_off(int keycode, t_data *data);
 
 //draw
 int		draw(t_data *data);

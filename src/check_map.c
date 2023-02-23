@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/02/22 17:30:11 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:17:11 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	check_pov(t_data *map, char c, int i, int j)
 		else if (c == 'N')
 			map->pov = 270;
 		else if (c == 'E')
-			map->pov = 0;
+			map->pov = 1;
 		else if (c == 'S')
 			map->pov = 90;
 		else if (c == 'W')

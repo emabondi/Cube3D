@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/16 11:25:04 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:25:34 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	window_images_events(t_data *data)
 	data->win = mlx_new_window(data->mlx, \
 		data->w_width, data->w_height, "Cub3D");
 	mlx_hook(data->win, 2, 0, ft_on, data);
-	mlx_hook(data->win, 3, 0, ft_off, data);
-	//mlx_do_key_autorepeaton(data->mlx);
+	//mlx_hook(data->win, 3, 0, ft_off, data);
 	data->minimap = init_image(data->mlx, data->w_width, data->w_height);
 	//mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 0, 0);
 	mlx_hook(data->win, 17, 0, mouse_exit, data);
