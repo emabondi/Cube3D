@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/23 15:25:51 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:54:29 by frudello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,19 @@ int	mouse_exit(t_data *data)
 
 int	ft_on(int keycode, t_data *data)
 {
-	//int	x;
-	//int	y;
-
 	if (keycode == ESC)
 		mouse_exit(data);
-	if (keycode == W)
+	else if (keycode == W && data->matrix[(int)(data->y - 0.25)][(int)data->x] != '1')
 		data->y -= 0.1;
-	if (keycode == A)
+	else if (keycode == A && data->matrix[(int)data->y][(int)(data->x - 0.25)] != '1')
 		data->x -= 0.1;
-	if (keycode == S)
+	else if (keycode == S && data->matrix[(int)(data->y + 0.25)][(int)data->x] != '1')
 		data->y += 0.1;
-	if (keycode == D)
+	else if (keycode == D && data->matrix[(int)data->y][(int)(data->x + 0.25)] != '1')
 		data->x += 0.1;
-	if (keycode == LEFT)
+	else if (keycode == LEFT)
 		data->pov -= 1;
-	if (keycode == RIGHT)
+	else if (keycode == RIGHT)
 		data->pov += 1;
 	return (0);
 }

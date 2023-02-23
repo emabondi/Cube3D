@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/23 15:25:27 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/23 17:28:32 by frudello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle)
 	double	ray_x;
 	double	ray_y;
 	float	dist;
-
+	
 	rayAngle *= 0.0174533;
 	ray_cos = cos(rayAngle);
 	ray_sin = sin(rayAngle);
@@ -31,6 +31,7 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle)
 		my_pixel_put(minimap, (int) ((ray_x + ray_cos * dist) * 10), (int) (( ray_y + ray_sin * dist) * 10), 16774656);
 		dist += 0.01;
 	}
+	printf("dist:%f\n", dist);
 	//trace_ray2();
 }
 
@@ -76,7 +77,7 @@ void	draw_minimap(t_data *data, t_image *minimap)
 
 int	draw(t_data *data)
 {
-	//draw_game();
+	// draw_game();
 	draw_minimap(data, data->minimap);
 	mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 10, 10);
 	return (0);

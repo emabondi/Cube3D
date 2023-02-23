@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/23 15:25:34 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/23 17:30:01 by frudello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,28 @@ t_image	*init_image(void *mlx, int width, int height)
 	return (new);
 }
 
+// void	draw_back(t_data *data)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	while (i < data->w_height)
+// 	{
+// 		j = 0;
+// 		while(j < data->w_width)
+// 		{
+// 			if (i < data->w_height / 2)
+// 				my_pixel_put(data->back, j, i, data->ceiling);
+// 			else
+// 				my_pixel_put(data->back, j, i, data->floor);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	mlx_put_image_to_window(data->mlx, data->win, data->back, 0, 0);
+// }
+
 void	window_images_events(t_data *data)
 {
 	data->win = mlx_new_window(data->mlx, \
@@ -30,7 +52,8 @@ void	window_images_events(t_data *data)
 	mlx_hook(data->win, 2, 0, ft_on, data);
 	//mlx_hook(data->win, 3, 0, ft_off, data);
 	data->minimap = init_image(data->mlx, data->w_width, data->w_height);
-	//mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 0, 0);
+	// data->back = init_image(data->mlx, data->w_width, data->w_height);
+	// draw_back(data);
 	mlx_hook(data->win, 17, 0, mouse_exit, data);
 }
 
