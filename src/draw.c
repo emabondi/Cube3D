@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/22 17:29:01 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/23 14:33:42 by frudello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,13 @@ void	draw_minimap(t_data *data, t_image *minimap)
 		{
 			if (data->matrix[i][j] == '1')
 				draw_square(minimap, j, i, 200);
-			else if ((j > data->x - 0.5) && (j < data->x + 0.5) && (i > data->y - 0.5) && (i < data->y + 0.5))
-				draw_circle(minimap, j, i);
+			// else if ((j > data->x - 0.5) && (j < data->x + 0.5) && (i > data->y - 0.5) && (i < data->y + 0.5))
+			// 	draw_circle(minimap, j, i);
 			else
 				draw_square(minimap, j, i, 0);
 		}
 	}
+	draw_circle(minimap, data->x, data->y);
 	raycasting(data, minimap);
 }
 

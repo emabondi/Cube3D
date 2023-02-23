@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:17:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/22 17:20:13 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/23 14:34:49 by frudello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_square(t_image *image, int x, int y, int c)
 	}
 }
 
-void	draw_circle(t_image *image, int x, int y)
+void	draw_circle(t_image *image, float x, float y)
 {
 	int	i;
 	int	j;

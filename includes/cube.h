@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/22 16:56:58 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/02/23 14:35:05 by frudello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,6 @@ int		ft_off(int keycode, t_data *data);
 int		draw(t_data *data);
 void	my_pixel_put(t_image *image, int x, int y, int color);
 void	draw_square(t_image *image, int x, int y, int c);
-void	draw_circle(t_image *image, int x, int y);
+void	draw_circle(t_image *image, float x, float y);
 
 #endif
