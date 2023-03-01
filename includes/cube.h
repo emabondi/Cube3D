@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/01 18:09:22 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/01 19:59:28 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,14 @@ typedef struct s_data {
 	int			r_width;
 	int			r_height;
 	char		**matrix;
-	double			pov;
+	double		pov;
 	int			fov;
 	int			half_fov;
 	float		x;
 	float		y;
 	t_image		*minimap;
 	t_image		*back;
+	t_image		*game;
 }	t_data;
 
 //utils
@@ -109,5 +110,6 @@ int		draw(t_data *data);
 void	my_pixel_put(t_image *image, int x, int y, int color);
 void	draw_square(t_data *data, int x, int y, int c);
 void	draw_circle(t_image *image, float x, float y);
+void	draw_back(t_data *data);
 
 #endif
