@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:17:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/23 14:34:49 by frudello         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:10:40 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ void	my_pixel_put(t_image *image, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	draw_square(t_image *image, int x, int y, int c)
+void	draw_square(t_data *data, int x, int y, int c)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < 10)
+	while (++i < data->r_height)
 	{
 		j = -1;
-		while (++j < 10)
-			my_pixel_put(image, x * 10 + j , y * 10 + i, c);
+		while (++j < data->r_width)
+			my_pixel_put(data->minimap, x + j , y + i, c);
 	}
 }
 
@@ -51,7 +51,7 @@ void	draw_circle(t_image *image, float x, float y)
 			j++;
 		while (tot > 0)
 		{
-			my_pixel_put(image, x * 10 + j, y * 10 + i, 16449536);
+			my_pixel_put(image, x + j, y + i, 16449536);
 			j++;
 			tot--;
 		}

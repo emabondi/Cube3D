@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/23 17:18:37 by frudello         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:09:22 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_data {
 	//map
 	int			width;
 	int			height;
+	int			r_width;
+	int			r_height;
 	char		**matrix;
 	double			pov;
 	int			fov;
@@ -105,7 +107,7 @@ int		ft_on(int keycode, t_data *data);
 //draw
 int		draw(t_data *data);
 void	my_pixel_put(t_image *image, int x, int y, int color);
-void	draw_square(t_image *image, int x, int y, int c);
+void	draw_square(t_data *data, int x, int y, int c);
 void	draw_circle(t_image *image, float x, float y);
 
 #endif

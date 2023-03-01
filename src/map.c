@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/16 10:57:30 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/01 17:55:28 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,8 @@ void	get_info(char *f, t_data *data)
 		str = get_next_line(fd);
 		lines++;
 	}
-	//free(str);
 	close(fd);
+	data->r_width = data->w_width / data->width;
+	data->r_height = data->w_height / data->height;
 	get_map(data, f, lines);
 }
