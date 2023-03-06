@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/02/23 15:54:29 by frudello         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:39:51 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	ft_on(int keycode, t_data *data)
 	else if (keycode == D && data->matrix[(int)data->y][(int)(data->x + 0.25)] != '1')
 		data->x += 0.1;
 	else if (keycode == LEFT)
-		data->pov -= 1;
+		data->pov -= 3;
 	else if (keycode == RIGHT)
-		data->pov += 1;
+		data->pov += 3;
 	return (0);
 }
 

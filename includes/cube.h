@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/01 19:59:28 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/06 17:14:06 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_data {
 	void		*win;
 	int			w_height;
 	int			w_width;
+	int			half_w_height;
 	int			floor;
 	int			ceiling;
 
@@ -84,7 +85,6 @@ typedef struct s_data {
 	float		x;
 	float		y;
 	t_image		*minimap;
-	t_image		*back;
 	t_image		*game;
 }	t_data;
 
