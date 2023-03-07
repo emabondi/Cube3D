@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/03/07 17:40:27 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:45:55 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	check_map(t_data *map)
 	}
 	if (map->pov == -1)
 		ft_error("Missing player");
-	//printf ("x:%f y:%f pov:%d", map->x, map->y, map->pov);
-	write(1, "tutto ok\n", 9);
 }
 
 void	check_pov(t_data *map, char c, int i, int j)
