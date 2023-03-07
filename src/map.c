@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/01 20:06:21 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/07 16:35:05 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,29 @@ t_textures	*save_info(char *str, t_data *data, t_textures *check)
 	return (ret);
 }
 
+void	parse_line_2(t_data *data, char *str)
+{
+	int	len;
+	int	i;
+
+	data->height++;
+	len = ft_strlen(str);
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] == 9)
+			len += 3;
+	}
+	if (ft_strchr(str, '\n') != NULL)
+		len--;
+	if (len > data->width)
+		data->width = len;
+}
+
 void	parse_line(char *str, t_data *data)
 {
 	int	i;
-	int	len;
+	//int	len;
 
 	i = ft_skip_spaces(str);
 	if (!ft_strncmp(str + i, "NO ", 3))
@@ -97,12 +116,14 @@ void	parse_line(char *str, t_data *data)
 		return ;
 	else if (str[i] == '1' && map_at_eof(data))
 	{
-		data->height++;
-		len = ft_strlen(str);
-		if (ft_strchr(str, '\n') != NULL)
-			len--;
-		if (len > data->width)
-			data->width = len;
+		parse_line_2(data, str);
+		//data->height++;
+		//len = ft_strlen(str);
+		//printf("len: %d\n", len);
+		//if (ft_strchr(str, '\n') != NULL)
+		//	len--;
+		//if (len > data->width)
+		//	data->width = len;
 	}
 	else
 		ft_error("Invalid line in file");

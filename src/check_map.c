@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/02/23 15:34:32 by frudello         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:40:27 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	check_zero(char **matrix, int i, int j)
 		|| matrix[(i)][(j) - 1] == 0 || matrix[(i)][(j) - 1] == ' '
 		|| matrix[(i) + 1][(j)] == 0 || matrix[(i) + 1][(j)] == ' '
 		|| matrix[(i)][(j) + 1] == 0 || matrix[(i)][(j) + 1] == ' ')
+	{
+		printf("i:%d j:%d\n", i, j);
 		ft_error("Unclosed map");
+	}
 }
 
 void	check_map(t_data *map)
@@ -69,10 +72,31 @@ void	check_pov(t_data *map, char c, int i, int j)
 	}
 }
 
+void	copy_char(t_data *data, char b, int *o, int *i)
+{
+	int	tmp;
+
+	if (b == 9)
+	{
+		tmp = *o + 4;
+		while (*o < tmp)
+		{
+			data->matrix[*i][*o] = ' ';
+			(*o)++;
+		}
+	}
+	else
+	{
+		data->matrix[*i][*o] = b;
+		(*o)++;
+	}
+}
+
 void	ft_malloc_map(t_data *data, int fd)
 {
 	int		i;
 	int		j;
+	int		o;
 	char	*buff;
 
 	data->matrix = (char **) malloc(sizeof(char *) * data->height + 1);
@@ -88,10 +112,11 @@ void	ft_malloc_map(t_data *data, int fd)
 	{
 		buff = get_next_line(fd);
 		j = 0;
+		o = 0;
 		while (buff[j] != '\0' && buff[j] != '\n')
 		{
 			check_pov(data, buff[j], i, j);
-			data->matrix[i][j] = buff[j];
+			copy_char(data, buff[j], &o, &i);
 			j++;
 		}
 		free(buff);
