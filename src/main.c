@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/06 17:14:16 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/07 11:54:53 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	window_images_events(t_data *data)
 	data->win = mlx_new_window(data->mlx, \
 		data->w_width, data->w_height, "Cub3D");
 	mlx_hook(data->win, 2, 0, ft_on, data);
-	//mlx_hook(data->win, 3, 0, ft_off, data);
+	mlx_hook(data->win, 3, 0, ft_off, data);
 	data->minimap = init_image(data->mlx, data->w_width / 4, data->w_height / 4);
 	data->game = init_image(data->mlx, data->w_width, data->w_height);
 	mlx_hook(data->win, 17, 0, mouse_exit, data);
@@ -54,6 +54,12 @@ void	ft_init_struct(t_data *data)
 	data->pov = -1;
 	data->fov = 60;
 	data->half_fov = data->fov / 2;
+	data->w = 0;
+	data->a = 0;
+	data->s = 0;
+	data->d = 0;
+	data->l = 0;
+	data->r = 0;
 }
 
 int	main(int argc, char *argv[])

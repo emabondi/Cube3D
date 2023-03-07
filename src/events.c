@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/06 16:39:51 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/07 12:34:02 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,43 +23,68 @@ int	ft_on(int keycode, t_data *data)
 {
 	if (keycode == ESC)
 		mouse_exit(data);
-	else if (keycode == W && data->matrix[(int)(data->y - 0.25)][(int)data->x] != '1')
-		data->y -= 0.1;
-	else if (keycode == A && data->matrix[(int)data->y][(int)(data->x - 0.25)] != '1')
-		data->x -= 0.1;
-	else if (keycode == S && data->matrix[(int)(data->y + 0.25)][(int)data->x] != '1')
-		data->y += 0.1;
-	else if (keycode == D && data->matrix[(int)data->y][(int)(data->x + 0.25)] != '1')
-		data->x += 0.1;
-	else if (keycode == LEFT)
-		data->pov -= 3;
-	else if (keycode == RIGHT)
-		data->pov += 3;
+	if (keycode == W)
+		data->w = 1;
+	if (keycode == A)
+		data->a = 1;
+	if (keycode == S)
+		data->s = 1;
+	if (keycode == D)
+		data->d = 1;
+	if (keycode == LEFT)
+		data->l = 1;
+	if (keycode == RIGHT)
+		data->r = 1;
 	return (0);
 }
 
+int	ft_off(int keycode, t_data *data)
+{
+	//if (keycode == ESC)
+	//	mouse_exit(data);
+	if (keycode == W)
+		data->w = 0;
+	if (keycode == A)
+		data->a = 0;
+	if (keycode == S)
+		data->s = 0;
+	if (keycode == D)
+		data->d = 0;
+	if (keycode == LEFT)
+		data->l = 0;
+	if (keycode == RIGHT)
+		data->r = 0;
+	return (0);
+}
 
+void	ft_move(double angle, t_data *data)
+{
+	double	rcos;
+	double	rsin;
 
-//int	ft_off(int keycode, t_data *data)
-//{
-//	//int	x;
-//	//int	y;
+	rcos = cos(angle);
+	rsin = sin(angle);
+	if (data->matrix[(int)(data->y + rsin * 0.1)]
+		[(int)(data->x + rcos * 0.1)] == '1'/* ||
+		data->matrix[(int)(data->y + rsin * 0.1)]
+		[(int)(data->x + rcos * 0.1)] == 'D'*/)
+		return ;
+	data->y += rsin * 0.1;
+	data->x += rcos * 0.1;
+}
 
-//	write (1, "LASCIO\n", 7);
-//	if (keycode == ESC)
-//	//	mouse_exit(data);
-//	//if (keycode == W)
-//	//	data->map.mov[0] = 0;
-//	// if (keycode == A)
-//	// 	data->map.mov[1] = 0;
-//	//if (keycode == S)
-//	// 	data->map.mov[2] = 0;
-//	//if (keycode == D)
-//	// 	data->map.mov[3] = 0;
-//	//if (keycode == LEFT)
-//	//	data->map.left = 0;
-//	//if (keycode == RIGHT)
-//	//	data->map.right = 0;
-//	(void)data;
-//	return (0);
-//}
+void	ft_movements(t_data *data)
+{
+	if (data->l == 1)
+		data->pov -= 2;
+	if (data->r == 1)
+		data->pov += 2;
+	if (data->w == 1)
+		ft_move((double)(data->pov * PI / 180), data);
+	if (data->a == 1)
+		ft_move((double)(data->pov - 90) * PI / 180  , data);
+	if (data->s == 1)
+		ft_move((double)(data->pov - 180) * PI / 180 , data);
+	if (data->d == 1)
+		ft_move((double)(data->pov + 90) * PI / 180 , data);
+}

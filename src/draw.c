@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/06 22:47:11 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/07 15:05:33 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	trace_game_line(t_data *data, float dist, const int x)
 	int	wall;
 	int	y;
 
+	if (dist < 1)
+		dist = 1;
 	wall = (int) data->half_w_height / dist;
 	y = -1;
 	while (++y < data->half_w_height - wall)
@@ -41,11 +43,14 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	ray_x = data->x;
 	ray_y = data->y;
 	dist = 0.0;
-	while (data->matrix[ (int)(ray_y + ray_sin * dist ) ][ (int)(ray_x + ray_cos * dist)] != '1')
+	while (data->matrix[(int)(ray_y + ray_sin * dist)][(int)(ray_x + ray_cos * dist)] != '1')
 	{
 		my_pixel_put(minimap, (int) ((ray_x + ray_cos * dist) * data->r_width), (int) (( ray_y + ray_sin * dist) * data->r_height), 16774656);
 		dist += 0.01;
 	}
+	//dist *= ray_cos;
+	//dist =  sqrt(powf(data->x - ray_x, 2) + powf(data->y - ray_y, 2));
+	//dist = dist * cos(PI / 180 * (rayAngle - data->pov));
 	//printf("%d)dist:%f\n", x, dist);
 	trace_game_line(data, dist, x);
 }
@@ -95,6 +100,7 @@ void	draw_minimap(t_data *data)
 
 int	draw(t_data *data)
 {
+	ft_movements(data);
 	draw_minimap(data);
 	// draw_game();
 	mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 10, 10);

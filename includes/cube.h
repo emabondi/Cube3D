@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/06 17:14:06 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/07 12:18:51 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,14 @@ typedef struct s_data {
 	float		y;
 	t_image		*minimap;
 	t_image		*game;
+
+	//movements
+	int			w;
+	int			a;
+	int			s;
+	int			d;
+	int			l;
+	int			r;
 }	t_data;
 
 //utils
@@ -103,13 +111,13 @@ void	check_map(t_data *map);
 //events
 int		mouse_exit(t_data *data);
 int		ft_on(int keycode, t_data *data);
-//int		ft_off(int keycode, t_data *data);
+int		ft_off(int keycode, t_data *data);
+void	ft_movements(t_data *data);
 
 //draw
 int		draw(t_data *data);
 void	my_pixel_put(t_image *image, int x, int y, int color);
 void	draw_square(t_data *data, int x, int y, int c);
 void	draw_circle(t_image *image, float x, float y);
-void	draw_back(t_data *data);
 
 #endif
