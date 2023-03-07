@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/07 11:54:53 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/07 17:18:28 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	ft_init_struct(t_data *data)
 	data->south = NULL;
 	data->west = NULL;
 	data->east = NULL;
-	data->w_height = 720;
-	data->w_width = 1024;
+	data->w_height = 1080;
+	data->w_width = 1920;
 	data->half_w_height = data->w_height / 2;
 	data->floor = -1;
 	data->ceiling = -1;

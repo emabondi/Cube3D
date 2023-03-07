@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/02/23 15:34:32 by frudello         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:36:18 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	check_map(t_data *map)
 	}
 	if (map->pov == -1)
 		ft_error("Missing player");
-	//printf ("x:%f y:%f pov:%d", map->x, map->y, map->pov);
-	write(1, "tutto ok\n", 9);
 }
 
 void	check_pov(t_data *map, char c, int i, int j)
