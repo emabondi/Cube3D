@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/07 17:48:15 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/08 17:13:41 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,36 @@ void	trace_game_line(t_data *data, float dist, const int x)
 		my_pixel_put(data->game, x, y, data->floor);
 }
 
+//void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
+//{
+//	double	ray_cos;
+//	double	ray_sin;
+//	double	ray_x;
+//	double	ray_y;
+//	float	dist;
+
+//	rayAngle *= 0.0174533;
+//	ray_cos = cos(rayAngle);
+//	ray_sin = sin(rayAngle);
+//	//printf("datax:%f, datay:%f\n", data->x, data->y);
+//	ray_x = data->x;
+//	ray_y = data->y;
+//	dist = 0.0;
+//	while (data->matrix[(int)(ray_y + ray_sin * dist)][(int)(ray_x + ray_cos * dist)] != '1')
+//	{
+//		my_pixel_put(minimap, (int)((ray_x + ray_cos * dist) * data->r_width), (int) (( ray_y + ray_sin * dist) * data->r_height), 16774656);
+//		dist += 0.01;
+//	}
+//	//dist *= ray_cos;
+//	//dist = sqrt(powf(data->x - (ray_x + ray_cos * dist), 2) + powf(data->y - (ray_y + ray_sin * dist), 2));
+//	dist = dist * cos((PI / 180.0) * (rayAngle - data->pov));
+//	// printf("%lf\n", rayAngle);
+//	//printf("datax:%f, rayx:%f, datay:%f, rayy:%f\n", data->x, ray_x, data->y, ray_y );
+//	//pause();
+//	//printf("%d)dist:%f\n", x, dist);
+//	trace_game_line(data, dist, x);
+//}
+
 void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 {
 	double	ray_cos;
@@ -37,22 +67,20 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	double	ray_y;
 	float	dist;
 
-	rayAngle *= 0.0174533;
-	ray_cos = cos(rayAngle);
-	ray_sin = sin(rayAngle);
+	rayAngle *= (PI / 180.0);
+	ray_cos = cos(rayAngle) / 256;
+	ray_sin = sin(rayAngle) / 256;
 	ray_x = data->x;
 	ray_y = data->y;
 	dist = 0.0;
-	while (data->matrix[(int)(ray_y + ray_sin * dist)][(int)(ray_x + ray_cos * dist)] != '1')
+	while (data->matrix[(int)ray_y][(int)ray_x] != '1')
 	{
-		my_pixel_put(minimap, (int)((ray_x + ray_cos * dist) * data->r_width), (int) (( ray_y + ray_sin * dist) * data->r_height), 16774656);
-		dist += 0.01;
+		ray_x += ray_cos;
+		ray_y += ray_sin;
+		my_pixel_put(minimap, (int)(ray_x * data->r_width), (int) (ray_y * data->r_height), 16774656);
 	}
-	//dist *= ray_cos;
 	dist = sqrt(powf(data->x - ray_x, 2) + powf(data->y - ray_y, 2));
-	dist *= cos((PI / 180.0f) * (rayAngle - data->pov));
-	// printf("%lf\n", rayAngle);
-	//printf("%d)dist:%f\n", x, dist);
+	dist = dist * cos((rayAngle - (PI / 180.0) * data->pov));
 	trace_game_line(data, dist, x);
 }
 
