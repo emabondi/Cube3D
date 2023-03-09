@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/07 12:34:02 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/09 12:54:35 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ void	ft_movements(t_data *data)
 		data->pov -= 2;
 	if (data->r == 1)
 		data->pov += 2;
+	if (data->pov > 360)
+		data->pov -= 360;
+	else if (data->pov < 0)
+		data->pov += 360;
 	if (data->w == 1)
 		ft_move((double)(data->pov * PI / 180), data);
 	if (data->a == 1)

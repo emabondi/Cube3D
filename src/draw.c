@@ -6,13 +6,27 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/08 17:13:41 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/09 14:49:44 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-void	trace_game_line(t_data *data, float dist, const int x)
+int	get_orientation(t_data *data, double x, double y)
+{
+	if (data->matrix[(int)(y - 0.005)][(int)x] == '1')
+		return (1);
+	else if (data->matrix[(int)(y + 0.005)][(int)x] == '1')
+		return (2);
+	else if (data->matrix[(int)y][(int)(x - 0.005)] == '1')
+		return (3);
+	else if (data->matrix[(int)y][(int)(x + 0.005)] == '1')
+		return (4);
+	else
+		return (0);
+}
+
+void	trace_game_line(t_data *data, int orientation, float dist, const int x)
 {
 	int	wall;
 	int	y;
@@ -23,41 +37,21 @@ void	trace_game_line(t_data *data, float dist, const int x)
 	y = -1;
 	while (++y < data->half_w_height - wall)
 		my_pixel_put(data->game, x, y, data->ceiling);
-	while (++y < data->half_w_height + wall)
-		my_pixel_put(data->game, x, y, 16713222);
+	if (orientation == 1)
+		while (++y < data->half_w_height + wall)
+			my_pixel_put(data->game, x, y, 3137239);
+	else if (orientation == 2)
+		while (++y < data->half_w_height + wall)
+			my_pixel_put(data->game, x, y, 4723712);
+	else if (orientation == 3)
+		while (++y < data->half_w_height + wall)
+			my_pixel_put(data->game, x, y, 15953948);
+	else if (orientation == 4)
+		while (++y < data->half_w_height + wall)
+			my_pixel_put(data->game, x, y, 15330053);
 	while (++y < data->w_height)
 		my_pixel_put(data->game, x, y, data->floor);
 }
-
-//void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
-//{
-//	double	ray_cos;
-//	double	ray_sin;
-//	double	ray_x;
-//	double	ray_y;
-//	float	dist;
-
-//	rayAngle *= 0.0174533;
-//	ray_cos = cos(rayAngle);
-//	ray_sin = sin(rayAngle);
-//	//printf("datax:%f, datay:%f\n", data->x, data->y);
-//	ray_x = data->x;
-//	ray_y = data->y;
-//	dist = 0.0;
-//	while (data->matrix[(int)(ray_y + ray_sin * dist)][(int)(ray_x + ray_cos * dist)] != '1')
-//	{
-//		my_pixel_put(minimap, (int)((ray_x + ray_cos * dist) * data->r_width), (int) (( ray_y + ray_sin * dist) * data->r_height), 16774656);
-//		dist += 0.01;
-//	}
-//	//dist *= ray_cos;
-//	//dist = sqrt(powf(data->x - (ray_x + ray_cos * dist), 2) + powf(data->y - (ray_y + ray_sin * dist), 2));
-//	dist = dist * cos((PI / 180.0) * (rayAngle - data->pov));
-//	// printf("%lf\n", rayAngle);
-//	//printf("datax:%f, rayx:%f, datay:%f, rayy:%f\n", data->x, ray_x, data->y, ray_y );
-//	//pause();
-//	//printf("%d)dist:%f\n", x, dist);
-//	trace_game_line(data, dist, x);
-//}
 
 void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 {
@@ -81,7 +75,9 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	}
 	dist = sqrt(powf(data->x - ray_x, 2) + powf(data->y - ray_y, 2));
 	dist = dist * cos((rayAngle - (PI / 180.0) * data->pov));
-	trace_game_line(data, dist, x);
+	ray_x -= ray_cos;
+	ray_y -= ray_sin;
+	trace_game_line(data, get_orientation(data, ray_x, ray_y), dist, x);
 }
 
 void	raycasting(t_data *data)
@@ -91,14 +87,10 @@ void	raycasting(t_data *data)
 	int		i;
 
 	rayAngle = data->pov - data->half_fov;
-	//increment = (PI / 180);
 	increment = (double)data->fov / (double)data->w_width;
-	//printf("ray:%f increment:%f\n", rayAngle, increment);
 	i = 0;
-	//while (i < data->w_width)
 	while (rayAngle <= data->pov + data->half_fov)
 	{
-		//printf("ray:%f\n", rayAngle);
 		trace_ray(data, data->minimap, rayAngle, i);
 		rayAngle += increment;
 		i++;
@@ -122,7 +114,6 @@ void	draw_minimap(t_data *data)
 				draw_square(data, j * data->r_width, i * data->r_height, 0);
 		}
 	}
-	raycasting(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->game->img, 0, 0);
 	draw_circle(data->minimap, data->x * data->r_width - 2.5, data->y * data->r_height - 2.5);
 }
@@ -131,7 +122,7 @@ int	draw(t_data *data)
 {
 	ft_movements(data);
 	draw_minimap(data);
-	// draw_game();
+	raycasting(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 10, 10);
 	return (0);
 }
