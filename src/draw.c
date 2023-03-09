@@ -3,28 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/09 14:49:44 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/09 16:42:57 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-int	get_orientation(t_data *data, double x, double y)
+int ggggmeoli(t_data *data, double rayAngle)
 {
-	if (data->matrix[(int)(y - 0.005)][(int)x] == '1')
-		return (1);
-	else if (data->matrix[(int)(y + 0.005)][(int)x] == '1')
-		return (2);
-	else if (data->matrix[(int)y][(int)(x - 0.005)] == '1')
-		return (3);
-	else if (data->matrix[(int)y][(int)(x + 0.005)] == '1')
-		return (4);
-	else
-		return (0);
+	double angle = rayAngle - data->pov;
+	// printf("angle:%f rayangle:%f pov:%f\n", angle, rayAngle, data->pov);
+	// Apply texture based on angle of intersection
+	if ((angle > 315 && angle < 360) || (angle < 45 && angle > 0)) {
+		// Apply north-facing texture
+		return 1;
+	} else if (angle >= 45 && angle < 135) {
+		// Apply east-facing texture
+		return 2;
+	} else if (angle >= 135 && angle < 225) {
+		// Apply south-facing texture
+		return 3;
+	} else {
+		// Apply west-facing texture
+		return 4;
+	}
 }
+
+// int	get_orientation(t_data *data, double x, double y)
+// {
+// 	if (data->matrix[(int)(y - 0.02)][(int)x] == '1')
+// 		return (1);
+// 	else if (data->matrix[(int)(y + 0.02)][(int)x] == '1')
+// 		return (2);
+// 	else if (data->matrix[(int)y][(int)(x - 0.02)] == '1')
+// 		return (3);
+// 	else if (data->matrix[(int)y][(int)(x + 0.02)] == '1')
+// 		return (4);
+// 	else
+// 		return (0);
+// }
 
 void	trace_game_line(t_data *data, int orientation, float dist, const int x)
 {
@@ -49,6 +69,9 @@ void	trace_game_line(t_data *data, int orientation, float dist, const int x)
 	else if (orientation == 4)
 		while (++y < data->half_w_height + wall)
 			my_pixel_put(data->game, x, y, 15330053);
+	// else if (orientation == 0)
+	// 	while (++y < data->half_w_height + wall)
+	// 		my_pixel_put(data->game, x, y, 000000);
 	while (++y < data->w_height)
 		my_pixel_put(data->game, x, y, data->floor);
 }
@@ -59,7 +82,7 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	double	ray_sin;
 	double	ray_x;
 	double	ray_y;
-	float	dist;
+	double	dist;
 
 	rayAngle *= (PI / 180.0);
 	ray_cos = cos(rayAngle) / 256;
@@ -67,7 +90,9 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	ray_x = data->x;
 	ray_y = data->y;
 	dist = 0.0;
-	while (data->matrix[(int)ray_y][(int)ray_x] != '1')
+	while ((data->matrix[(int)ray_y][(int)ray_x] != '1' && \
+		data->matrix[(int)(ray_y + 0.01)][(int)(ray_x + 0.01)] != '1') && \
+		data->matrix[(int)(ray_y - 0.01)][(int)(ray_x - 0.01)]!= '1')
 	{
 		ray_x += ray_cos;
 		ray_y += ray_sin;
@@ -77,7 +102,7 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	dist = dist * cos((rayAngle - (PI / 180.0) * data->pov));
 	ray_x -= ray_cos;
 	ray_y -= ray_sin;
-	trace_game_line(data, get_orientation(data, ray_x, ray_y), dist, x);
+	trace_game_line(data, ggggmeoli(data, rayAngle), dist, x);
 }
 
 void	raycasting(t_data *data)
