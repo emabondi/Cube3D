@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/13 15:41:34 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/13 17:50:43 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,23 @@
 
 int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 commenta
 {
-	(void)rayAngle;
-	if (data->matrix[(int)(y + 0.01)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.01)] == '1' || data->matrix[(int)y][(int)(x + 0.01)] == '1'))
+	if (data->matrix[(int)(y + 0.005)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.005)] == '1' || data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y > y)
 		return (1);
-	if (data->matrix[(int)(y - 0.01)][(int)x] != '1' && data->matrix[(int)y][(int)(x - 0.01)] == '1' && data->matrix[(int)y][(int)(x + 0.01)] == '1')
+	if (data->matrix[(int)(y - 0.005)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.005)] == '1' || data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y < y)
 		return (2);//sud
-	if (data->matrix[(int)y][(int)(x + 0.01)] != '1' && data->matrix[(int)(y - 0.01)][(int)x] == '1' && data->matrix[(int)(y + 0.01)][(int)x] == '1')
+	if (data->matrix[(int)y][(int)(x + 0.005)] != '1' && (data->matrix[(int)(y - 0.005)][(int)x] == '1' || data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x > x)
 		return (3);//ovest
-	if (data->matrix[(int)y][(int)(x - 0.01)] != '1' && data->matrix[(int)(y - 0.01)][(int)x] == '1' && data->matrix[(int)(y + 0.01)][(int)x] == '1')
+	if (data->matrix[(int)y][(int)(x - 0.005)] != '1' && (data->matrix[(int)(y - 0.005)][(int)x] == '1' || data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x < x)
 		return (4);//est
+	if (rayAngle < 0.5 || rayAngle > 5)
+		return (4);
+	if (rayAngle >= 0.5 && rayAngle < 2)
+		return (2);
+	if (rayAngle >= 2 && rayAngle < 3.5)
+		return (3);
+	if (rayAngle >= 3.5 && rayAngle < 5)
+		return (1);
+	printf("angle:%f\n", rayAngle);
 	return (0);
 }
 
@@ -119,6 +127,25 @@ int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 comme
 //	}
 //}
 
+void	text_pixel_put(t_data *data, int x, int y, t_textures *text, int i, int tex_y)
+{
+	char	*dst;
+	char	*src;
+	int		color;
+
+	dst = data->game.addr + (y * data->game->line_length + x * (data->game->bits_per_pixel / 8));
+	if (data->wall_h[i] > FOV * 8)
+		tex_y += (floor(data->wall_h[i] - FOV * 8) / 2);
+	if (text == NULL)
+		*(unsigned int *)dst = BLACK;
+	else
+	{
+		src = text->addr + ((int)(tex_y * text->h / data->wall_h[i]) * text->ll + (int)data->hit_x[i] * (text->bpp / 8));
+		color = *(unsigned int *)src;
+		*(unsigned int *)dst = color;
+	}
+}
+
 void	trace_game_line(t_data *data, int orientation, float dist, const int x)
 {
 	int	wall;
@@ -130,6 +157,7 @@ void	trace_game_line(t_data *data, int orientation, float dist, const int x)
 	y = -1;
 	while (++y < data->half_w_height - wall)
 		my_pixel_put(data->game, x, y, data->ceiling);
+	y--;
 	if (orientation == 1)
 		while (++y < data->half_w_height + wall)
 			my_pixel_put(data->game, x, y, 3137239);
@@ -142,9 +170,7 @@ void	trace_game_line(t_data *data, int orientation, float dist, const int x)
 	else if (orientation == 4)
 		while (++y < data->half_w_height + wall)
 			my_pixel_put(data->game, x, y, 15330053);
-	// else if (orientation == 0)
-	// 	while (++y < data->half_w_height + wall)
-	// 		my_pixel_put(data->game, x, y, 000000);
+	y--;
 	while (++y < data->w_height)
 		my_pixel_put(data->game, x, y, data->floor);
 }
@@ -164,9 +190,7 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	ray_x = data->x;
 	ray_y = data->y;
 	dist = 0.0;
-	while (data->matrix[(int)ray_y][(int)ray_x] != '1' /*&& \
-		data->matrix[(int)(ray_y + 0.01)][(int)(ray_x + 0.01)] != '1') && \
-		data->matrix[(int)(ray_y - 0.01)][(int)(ray_x - 0.01)]!= '1'*/)
+	while (data->matrix[(int)ray_y][(int)ray_x] != '1')
 	{
 		ray_x += ray_cos;
 		ray_y += ray_sin;

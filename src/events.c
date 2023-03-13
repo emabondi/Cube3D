@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/09 12:54:35 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:56:53 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	ft_move(double angle, t_data *data)
 	rcos = cos(angle);
 	rsin = sin(angle);
 	if (data->matrix[(int)(data->y + rsin * 0.1)]
-		[(int)(data->x + rcos * 0.1)] == '1'/* ||
+		[(int)(data->x + rcos * 0.1)] == '1' || data->matrix[(int)(data->y + rsin * 0.07)]
+		[(int)(data->x + rcos * 0.07)] == '1'/* ||
 		data->matrix[(int)(data->y + rsin * 0.1)]
 		[(int)(data->x + rcos * 0.1)] == 'D'*/)
 		return ;
