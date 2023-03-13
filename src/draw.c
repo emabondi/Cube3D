@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/11 17:56:00 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/13 15:41:34 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,48 +42,82 @@
 //	}
 //}
 
-//int	ggggmeoli(double ray_x, double ray_y, double ray_cos, double ray_sin)
+//int	get_orientation(t_data *data, int x, int y, double ray_angle) //4 ebassi decommenta
 //{
-//	int	floorx;
-//	int	floory;
 
-//	floorx = (int)(ray_x - ray_cos);
-//	floory = (int)(ray_y - ray_sin);
-//	if (floory > (int)ray_y && floorx == (int)ray_x)
+//	if (dy == (int)rays[1] && dx < (int)rays[0])
 //		return (1);
-//	else if (floory < (int)ray_y && floorx == (int)ray_x)
+//	else if (dy == (int)rays[1] && dx > (int)rays[0])
 //		return (2);
-//	else if (floorx > (int)ray_x && floory == (int)ray_y)
+//	else if (dx == (int)rays[0] && dy < (int)rays[1])
 //		return (3);
-//	else if (floorx < (int)ray_x && floory == (int)ray_y)
+//	else if (dx == (int)rays[0] && dy > (int)rays[1])
 //		return (4);
-//	else
-//		return (0);
+//	return (5);
 //}
 
-int	get_orientation(t_data *data, double x, double y, double rayAngle)
+int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 commenta
 {
-	if (data->matrix[(int)(y - 0.02)][(int)x] == '1')
+	(void)rayAngle;
+	if (data->matrix[(int)(y + 0.01)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.01)] == '1' || data->matrix[(int)y][(int)(x + 0.01)] == '1'))
 		return (1);
-	else if (data->matrix[(int)(y + 0.02)][(int)x] == '1')
-		return (2);
-	else if (data->matrix[(int)y][(int)(x - 0.02)] == '1')
-		return (3);
-	else if (data->matrix[(int)y][(int)(x + 0.02)] == '1')
-		return (4);
-	else if (rayAngle < 0.5 || rayAngle > 5)
-		return (4);
-	else if (rayAngle >= 0.5 && rayAngle < 2)
-		return (2);
-	else if (rayAngle >= 2 && rayAngle < 3.5)
-		return (3);
-	else if (rayAngle >= 3.5 && rayAngle < 5)
-		return (1);
-	else {
-		printf("rayAngle:%f\n", rayAngle);
-		return (0);
-	}
+	if (data->matrix[(int)(y - 0.01)][(int)x] != '1' && data->matrix[(int)y][(int)(x - 0.01)] == '1' && data->matrix[(int)y][(int)(x + 0.01)] == '1')
+		return (2);//sud
+	if (data->matrix[(int)y][(int)(x + 0.01)] != '1' && data->matrix[(int)(y - 0.01)][(int)x] == '1' && data->matrix[(int)(y + 0.01)][(int)x] == '1')
+		return (3);//ovest
+	if (data->matrix[(int)y][(int)(x - 0.01)] != '1' && data->matrix[(int)(y - 0.01)][(int)x] == '1' && data->matrix[(int)(y + 0.01)][(int)x] == '1')
+		return (4);//est
+	return (0);
 }
+
+//int	get_orientation(t_data *data, double x, double y, double rayAngle) //2 commenta
+//{
+//	if (y < data->y && data->matrix[(int)y][(int)(x - 0.01)] == '1' && data->matrix[(int)y][(int)(x + 0.01)] == '1')
+//		return (1);
+//	if (y > data->y && data->matrix[(int)y][(int)(x - 0.01)] == '1' && data->matrix[(int)y][(int)(x + 0.01)] == '1')
+//		return (2);//sud
+//	if (x < data->x && data->matrix[(int)(y - 0.01)][(int)x] == '1' && data->matrix[(int)(y + 0.01)][(int)x]== '1')
+//		return (3);//ovest
+//	if (x > data->x && data->matrix[(int)(y - 0.01)][(int)x] == '1' && data->matrix[(int)(y + 0.01)][(int)x]== '1')
+//		return (4);//est
+//	if (rayAngle < 0.5 || rayAngle > 5)
+//		return (4);
+//	if (rayAngle >= 0.5 && rayAngle < 2)
+//		return (2);
+//	if (rayAngle >= 2 && rayAngle < 3.5)
+//		return (3);
+//	if (rayAngle >= 3.5 && rayAngle < 5)
+//		return (1);
+//	return (0);
+//}
+
+//int	get_orientation(t_data *data, double x, double y, double rayAngle) //1 decommenta
+//{
+//	//(void)data;
+//	//(void)x;
+//	//(void)y;
+//	//(void)rayAngle;
+//	if (data->matrix[(int)(y - 0.01)][(int)x] == '1')
+//		return (1);
+//	else if (data->matrix[(int)(y + 0.01)][(int)x] == '1')
+//		return (2);
+//	else if (data->matrix[(int)y][(int)(x - 0.01)] == '1')
+//		return (3);
+//	else if (data->matrix[(int)y][(int)(x + 0.01)] == '1')
+//		return (4);
+//	else if (rayAngle < 0.5 || rayAngle > 5)
+//		return (4);
+//	else if (rayAngle >= 0.5 && rayAngle < 2)
+//		return (2);
+//	else if (rayAngle >= 2 && rayAngle < 3.5)
+//		return (3);
+//	else if (rayAngle >= 3.5 && rayAngle < 5)
+//		return (1);
+//	else {
+//		printf("rayAngle:%f\n", rayAngle);
+//		return (0);
+//	}
+//}
 
 void	trace_game_line(t_data *data, int orientation, float dist, const int x)
 {
@@ -140,8 +174,8 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	}
 	dist = sqrt(powf(data->x - ray_x, 2) + powf(data->y - ray_y, 2));
 	dist = dist * cos((rayAngle - (PI / 180.0) * data->pov));
-	ray_x -= ray_cos;
-	ray_y -= ray_sin;
+	//ray_x -= ray_cos;
+	//ray_y -= ray_sin;
 	trace_game_line(data, get_orientation(data, ray_x, ray_y, rayAngle), dist, x);
 }
 
@@ -154,7 +188,7 @@ void	raycasting(t_data *data)
 	rayAngle = data->pov - data->half_fov;
 	increment = (double)data->fov / (double)data->w_width;
 	i = 0;
-	while (rayAngle <= data->pov + data->half_fov)
+	while (rayAngle < data->pov + data->half_fov)
 	{
 		trace_ray(data, data->minimap, rayAngle, i);
 		rayAngle += increment;
