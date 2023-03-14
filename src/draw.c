@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/14 14:31:33 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:37:32 by frudello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,86 +103,83 @@ int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 comme
 //	}
 //}
 
-void	text_pixel_put(t_data *data, int x, int *y, t_textures *text, int wall, double ray_x, double ray_y)
+void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
 {
-	int			flag;
 	float		t_ratio;
 	float		t_y;
 	float		t_x;
 	int			pixel;
 
-	if (text == data->north || text == data->south)
-		flag = 0;
-	else
-		flag = 1;
-	if (flag == 0)
 	//	t_pos = (int)ray_x % text->width;
-	t_ratio = text->height / wall;
+	t_ratio = ((float)text->height / (float)r->wall) / 2;
 	t_y = 0;
-	t_x = (int)((int)(text->width * (ray_x + ray_y)) % text->width);
-	while (++(*y) < data->half_w_height + wall)
+	t_x = (int)((int)(text->width * (r->ray_x + r->ray_y)) % text->width);
+	// gettextstart()
+	while (++(*y) < data->half_w_height + r->wall)
 	{	
-		pixel = gettextcolor(t_x, t_y, text);
+		pixel = gettextcolor(t_y, t_x, text);
 		t_y += t_ratio;
-		my_pixel_put(data->game, x, *y, pixel);
+		my_pixel_put(data->game, r->w_x, *y, pixel);
 	}
 }
 
-void	trace_game_line(t_data *data, int orientation, float dist, const int x, double ray_x, double ray_y)
+void	trace_game_line(t_data *data, int orientation, t_ray *r)
 {
-	int	wall;
+	// int	wall;
 	int	y;
 
-	if (dist < 1)
-		dist = 1;
-	wall = (int) data->half_w_height / dist;
+	if (r->dist < 1)
+		r->dist = 1;
+	r->wall = (int) data->half_w_height / r->dist;
 	y = -1;
-	while (++y < data->half_w_height - wall)
-		my_pixel_put(data->game, x, y, data->ceiling);
+	while (++y < data->half_w_height - r->wall)
+		my_pixel_put(data->game, r->w_x, y, data->ceiling);
 	y--;
 	if (orientation == 1)
 		//while (++y < data->half_w_height + wall)
-			text_pixel_put(data, x, &y, data->north, wall, ray_x, ray_y);
+			text_pixel_put(data, r, &y, data->north);
 			//my_pixel_put(data->game, x, y, 3137239);
 	else if (orientation == 2)
-		while (++y < data->half_w_height + wall)
-			my_pixel_put(data->game, x, y, 4723712);
+		while (++y < data->half_w_height + r->wall)
+			my_pixel_put(data->game, r->w_x, y, 4723712);
 	else if (orientation == 3)
-		while (++y < data->half_w_height + wall)
-			my_pixel_put(data->game, x, y, 15953948);
+		while (++y < data->half_w_height + r->wall)
+			my_pixel_put(data->game, r->w_x, y, 15953948);
 	else if (orientation == 4)
-		while (++y < data->half_w_height + wall)
-			my_pixel_put(data->game, x, y, 15330053);
+		while (++y < data->half_w_height + r->wall)
+			my_pixel_put(data->game, r->w_x, y, 15330053);
 	y--;
 	while (++y < data->w_height)
-		my_pixel_put(data->game, x, y, data->floor);
+		my_pixel_put(data->game, r->w_x, y, data->floor);
 }
 
 void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 {
 	double	ray_cos;
 	double	ray_sin;
-	double	ray_x;
-	double	ray_y;
-	double	dist;
+	t_ray	r;	
+	// double	ray_x;
+	// double	ray_y;
+	// double	dist;
 
+	r.w_x = x;
 	rayAngle *= (PI / 180.0);
 	ray_cos = cos(rayAngle) / 256;
 	ray_sin = sin(rayAngle) / 256;
-	ray_x = data->x;
-	ray_y = data->y;
-	dist = 0.0;
-	while (data->matrix[(int)ray_y][(int)ray_x] != '1')
+	r.ray_x = data->x;
+	r.ray_y = data->y;
+	r.dist = 0.0;
+	while (data->matrix[(int)r.ray_y][(int)r.ray_x] != '1')
 	{
-		ray_x += ray_cos;
-		ray_y += ray_sin;
-		my_pixel_put(minimap, (int)(ray_x * data->r_width), (int) (ray_y * data->r_height), 16774656);
+		r.ray_x += ray_cos;
+		r.ray_y += ray_sin;
+		my_pixel_put(minimap, (int)(r.ray_x * data->r_width), (int) (r.ray_y * data->r_height), 16774656);
 	}
-	dist = sqrt(powf(data->x - ray_x, 2) + powf(data->y - ray_y, 2));
-	dist = dist * cos((rayAngle - (PI / 180.0) * data->pov));
+	r.dist = sqrt(powf(data->x - r.ray_x, 2) + powf(data->y - r.ray_y, 2));
+	r.dist = r.dist * cos((rayAngle - (PI / 180.0) * data->pov));
 	//ray_x -= ray_cos;
 	//ray_y -= ray_sin;
-	trace_game_line(data, get_orientation(data, ray_x, ray_y, rayAngle), dist, x, ray_x, ray_y);
+	trace_game_line(data, get_orientation(data, r.ray_x, r.ray_y, rayAngle), &r);
 }
 
 void	raycasting(t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 13:27:59 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/14 14:17:38 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:37:41 by frudello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,19 @@ int	gettextcolor(int x, int y, t_textures *text)
 	color = *(unsigned int *)dst;
 	return (color);
 }
+
+// void	gettextstart(t_ray *ray, int x, )
+// {
+// 	int		wheight;
+// 	double yincrementer;
+	
+// 	wheight = W_HEIGHT / 2 / ray->dist;
+// 	yincrementer = (wheight * 2) / 128.0;
+// 	if (ray->dist >= 1)
+// 	{
+// 		ray->itexture = 0;
+// 		return ;
+// 	}
+// 	ray->itexture = (wheight - W_HEIGHT / 2) / yincrementer;
+// 	yincrementer = (ray->wall * 2) / (128.0 - ray->itexture * 2);
+// }

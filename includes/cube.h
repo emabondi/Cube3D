@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/14 14:17:10 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/14 16:17:13 by frudello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,19 @@
 //# include "../mlx/mlx.h"
 #include <mlx.h>
 
-# define PI		3.14159265359f
+# define PI			3.14159265359f
 //keypress
-# define W		13
-# define A		0
-# define S		1
-# define D		2
-# define LEFT	123
-# define RIGHT	124
-# define ESC	53
+# define W			13
+# define A			0
+# define S			1
+# define D			2
+# define LEFT		123
+# define RIGHT		124
+# define ESC		53
+# define W_HEIGHT	1080
+# define W_WIDTH	1920
+# define FOV		60
+# define HALF_FOV	30
 
 typedef struct s_image {
 	void	*img;
@@ -50,14 +54,13 @@ typedef struct s_textures {
 	int		height;
 }	t_textures;
 
-//typedef struct s_map {
-//	int			width;
-//	int			height;
-//	char		**matrix;
-//	int			pov;
-//	float		x;
-//	float		y;
-//}	t_map;
+typedef struct s_ray {
+	double	ray_x;
+	double	ray_y;
+	double	dist;
+	int		w_x;
+	int		wall;
+}	t_ray;
 
 typedef struct s_data {
 	t_textures	*north;
