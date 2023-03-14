@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:17:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/01 18:10:40 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/14 17:50:23 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_pixel_put(t_image *image, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = image->addr + (y * image->line_length + x * (image->bits_per_pixel / 8));
+	dst = image->addr + (y * image->l_length + x * (image->bpp / 8));
 	*(unsigned int*)dst = color;
 }
 

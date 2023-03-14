@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frudello <frudello@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/14 16:37:32 by frudello         ###   ########.fr       */
+/*   Updated: 2023/03/14 18:16:39 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,42 +80,41 @@ int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 comme
 		return (3);
 	if (rayAngle >= 3.5 && rayAngle < 5)
 		return (1);
-	printf("angle:%f\n", rayAngle);
 	return (0);
 }
 
-//void	text_pixel_put(t_data *data, int x, int y, t_textures *text, int tex_y, int wall)
-//{
-//	char	*dst;
-//	char	*src;
-//	int		color;
+// void	text_pixel_put(t_data *data, int x, int y, t_textures *text, int tex_y, int wall)
+// {
+// 	char	*dst;
+// 	char	*src;
+// 	int		color;
 
-//	dst = data->game->addr + (y * data->game->line_length + x * (data->game->bits_per_pixel / 8));
-//	if (wall > data->fov * 8)
-//		tex_y += (floor(wall - data->fov * 8) / 2);
-//	if (text == NULL)
-//		*(unsigned int *)dst = 0;
-//	else
-//	{
-//		src = text->addr + ((int)(tex_y * text->height / wall) * text->line_length + x * (text->bpp / 8));
-//		color = *(unsigned int *)src;
-//		*(unsigned int *)dst = color;
-//	}
-//}
+// 	dst = data->game->addr + (y * data->game->line_length + x * (data->game->bits_per_pixel / 8));
+// 	if (wall > data->fov * 8)
+// 		tex_y += (floor(wall - data->fov * 8) / 2);
+// 	if (text == NULL)
+// 		*(unsigned int *)dst = 0;
+// 	else
+// 	{
+// 		src = text->addr + ((int)(tex_y * text->height / wall) * text->line_length + x * (text->bpp / 8));
+// 		color = *(unsigned int *)src;
+// 		*(unsigned int *)dst = color;
+// 	}
+// }
 
 void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
 {
-	float		t_ratio;
-	float		t_y;
-	float		t_x;
-	int			pixel;
+	float	t_ratio;
+	float	t_y;
+	float	t_x;
+	int		pixel;
 
-	//	t_pos = (int)ray_x % text->width;
+	// t_pos = (int)ray_x % text->width;
 	t_ratio = ((float)text->height / (float)r->wall) / 2;
 	t_y = 0;
 	t_x = (int)((int)(text->width * (r->ray_x + r->ray_y)) % text->width);
-	// gettextstart()
-	while (++(*y) < data->half_w_height + r->wall)
+	// gettextstart();
+	while (++(*y) < data->half_w_h + r->wall)
 	{	
 		pixel = gettextcolor(t_y, t_x, text);
 		t_y += t_ratio;
@@ -125,31 +124,33 @@ void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
 
 void	trace_game_line(t_data *data, int orientation, t_ray *r)
 {
-	// int	wall;
 	int	y;
 
 	if (r->dist < 1)
 		r->dist = 1;
-	r->wall = (int) data->half_w_height / r->dist;
+	r->wall = (int) data->half_w_h / r->dist;
 	y = -1;
-	while (++y < data->half_w_height - r->wall)
+	while (++y < data->half_w_h - r->wall)
 		my_pixel_put(data->game, r->w_x, y, data->ceiling);
 	y--;
 	if (orientation == 1)
-		//while (++y < data->half_w_height + wall)
+		while (++y < data->half_w_h + r->wall)
 			text_pixel_put(data, r, &y, data->north);
 			//my_pixel_put(data->game, x, y, 3137239);
 	else if (orientation == 2)
-		while (++y < data->half_w_height + r->wall)
-			my_pixel_put(data->game, r->w_x, y, 4723712);
+		while (++y < data->half_w_h + r->wall)
+			text_pixel_put(data, r, &y, data->east);
+			// my_pixel_put(data->game, r->w_x, y, 4723712);
 	else if (orientation == 3)
-		while (++y < data->half_w_height + r->wall)
-			my_pixel_put(data->game, r->w_x, y, 15953948);
+		while (++y < data->half_w_h + r->wall)
+			text_pixel_put(data, r, &y, data->west);
+			// my_pixel_put(data->game, r->w_x, y, 15953948);
 	else if (orientation == 4)
-		while (++y < data->half_w_height + r->wall)
-			my_pixel_put(data->game, r->w_x, y, 15330053);
+		while (++y < data->half_w_h + r->wall)
+			text_pixel_put(data, r, &y, data->south);
+			// my_pixel_put(data->game, r->w_x, y, 15330053);
 	y--;
-	while (++y < data->w_height)
+	while (++y < W_HEIGHT)
 		my_pixel_put(data->game, r->w_x, y, data->floor);
 }
 
@@ -188,10 +189,10 @@ void	raycasting(t_data *data)
 	double	increment;
 	int		i;
 
-	rayAngle = data->pov - data->half_fov;
-	increment = (double)data->fov / (double)data->w_width;
+	rayAngle = data->pov - HALF_FOV;
+	increment = (double)FOV / (double)W_WIDTH;
 	i = 0;
-	while (rayAngle < data->pov + data->half_fov)
+	while (rayAngle < data->pov + HALF_FOV)
 	{
 		trace_ray(data, data->minimap, rayAngle, i);
 		rayAngle += increment;
@@ -211,7 +212,7 @@ void	draw_minimap(t_data *data)
 		while (data->matrix[i][++j] != '\0')
 		{
 			if (data->matrix[i][j] == '1')
-				draw_square(data, j * data->r_width, i * data->r_height,200);
+				draw_square(data, j * data->r_width, i * data->r_height, 200);
 			else
 				draw_square(data, j * data->r_width, i * data->r_height, 0);
 		}

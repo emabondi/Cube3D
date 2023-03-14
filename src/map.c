@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/07 16:35:05 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/14 18:04:07 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_textures	*save_info(char *str, t_data *data, t_textures *check)
 	if (!ret->ptr)
 		ft_error("Unvalid texture");
 	ret->addr = mlx_get_data_addr(ret->ptr, &ret->bpp,
-			&ret->line_length, &ret->endian);
+			&ret->l_length, &ret->endian);
 	return (ret);
 }
 
@@ -148,7 +148,7 @@ void	get_info(char *f, t_data *data)
 		lines++;
 	}
 	close(fd);
-	data->r_width = data->w_width / 4 / data->width;
-	data->r_height = data->w_height / 4 / data->height;
+	data->r_width = W_WIDTH / 4 / data->width;
+	data->r_height = W_HEIGHT / 4 / data->height;
 	get_map(data, f, lines);
 }

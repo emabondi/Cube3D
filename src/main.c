@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/13 14:16:17 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/14 18:03:20 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ t_image	*init_image(void *mlx, int width, int height)
 
 	new = (t_image *)malloc(sizeof(t_image));
 	new->img = mlx_new_image(mlx, width, height);
-	new->addr = mlx_get_data_addr(new->img, &new->bits_per_pixel, \
-		&new->line_length, &new->endian);
+	new->addr = mlx_get_data_addr(new->img, &new->bpp, \
+		&new->l_length, &new->endian);
 	return (new);
 }
 
 void	window_images_events(t_data *data)
 {
 	data->win = mlx_new_window(data->mlx, \
-		data->w_width, data->w_height, "Cub3D");
+		W_WIDTH, W_HEIGHT, "Cub3D");
 	mlx_hook(data->win, 2, 0, ft_on, data);
 	mlx_hook(data->win, 3, 0, ft_off, data);
-	data->minimap = init_image(data->mlx, data->w_width / 4, data->w_height / 4);
-	data->game = init_image(data->mlx, data->w_width, data->w_height);
+	data->minimap = init_image(data->mlx, W_WIDTH / 4, W_HEIGHT / 4);
+	data->game = init_image(data->mlx, W_WIDTH, W_HEIGHT);
 	mlx_hook(data->win, 17, 0, mouse_exit, data);
 }
 
@@ -42,9 +42,9 @@ void	ft_init_struct(t_data *data)
 	data->south = NULL;
 	data->west = NULL;
 	data->east = NULL;
-	data->w_height = 1080;
-	data->w_width = 1920;
-	data->half_w_height = data->w_height / 2;
+	// data->w_height = 1080;
+	// data->w_width = 1920;
+	data->half_w_h = W_HEIGHT / 2;
 	data->floor = -1;
 	data->ceiling = -1;
 	data->height = 0;
@@ -52,8 +52,8 @@ void	ft_init_struct(t_data *data)
 	data->r_width = 0;
 	data->r_height = 0;
 	data->pov = -1;
-	data->fov = 60;
-	data->half_fov = data->fov / 2;
+	// data->fov = 60;
+	// data->half_fov = data->fov / 2;
 	data->w = 0;
 	data->a = 0;
 	data->s = 0;
