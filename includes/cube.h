@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/07 16:24:51 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:17:10 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,6 @@ int		draw(t_data *data);
 void	my_pixel_put(t_image *image, int x, int y, int color);
 void	draw_square(t_data *data, int x, int y, int c);
 void	draw_circle(t_image *image, float x, float y);
+int		gettextcolor(int x, int y, t_textures *text);
 
 #endif

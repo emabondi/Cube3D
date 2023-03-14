@@ -6,77 +6,12 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/13 17:50:43 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/14 14:31:33 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-//int ggggmeoli(t_data *data, double angle)
-//{
-//	//double p;
-//	//double angle;
-
-//	//p = data->pov * (PI / 180);
-//	//(void)data;
-//	angle /= (PI / 180.0);
-//	//angle = angle - data->pov;
-//	//if (angle < 0)
-//	//	angle += 360;
-//	//else if (angle >= 360)
-//	//	angle -= 360;
-//	 printf("angle:%f rayangle:%f pov:%f\n", angle, angle, data->pov);
-//	// Apply texture based on angle of intersection
-//	if (angle > 315 || angle < 45) {
-//		// Apply north-facing texture
-//		return 1;
-//	} else if (angle >= 45 && angle < 135) {
-//		// Apply east-facing texture
-//		return 2;
-//	} else if (angle >= 135 && angle < 225) {
-//		// Apply south-facing texture
-//		return 3;
-//	} else {
-//		// Apply west-facing texture
-//		return 4;
-//	}
-//}
-
-//int	get_orientation(t_data *data, int x, int y, double ray_angle) //4 ebassi decommenta
-//{
-
-//	if (dy == (int)rays[1] && dx < (int)rays[0])
-//		return (1);
-//	else if (dy == (int)rays[1] && dx > (int)rays[0])
-//		return (2);
-//	else if (dx == (int)rays[0] && dy < (int)rays[1])
-//		return (3);
-//	else if (dx == (int)rays[0] && dy > (int)rays[1])
-//		return (4);
-//	return (5);
-//}
-
-int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 commenta
-{
-	if (data->matrix[(int)(y + 0.005)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.005)] == '1' || data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y > y)
-		return (1);
-	if (data->matrix[(int)(y - 0.005)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.005)] == '1' || data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y < y)
-		return (2);//sud
-	if (data->matrix[(int)y][(int)(x + 0.005)] != '1' && (data->matrix[(int)(y - 0.005)][(int)x] == '1' || data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x > x)
-		return (3);//ovest
-	if (data->matrix[(int)y][(int)(x - 0.005)] != '1' && (data->matrix[(int)(y - 0.005)][(int)x] == '1' || data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x < x)
-		return (4);//est
-	if (rayAngle < 0.5 || rayAngle > 5)
-		return (4);
-	if (rayAngle >= 0.5 && rayAngle < 2)
-		return (2);
-	if (rayAngle >= 2 && rayAngle < 3.5)
-		return (3);
-	if (rayAngle >= 3.5 && rayAngle < 5)
-		return (1);
-	printf("angle:%f\n", rayAngle);
-	return (0);
-}
 
 //int	get_orientation(t_data *data, double x, double y, double rayAngle) //2 commenta
 //{
@@ -127,26 +62,73 @@ int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 comme
 //	}
 //}
 
-void	text_pixel_put(t_data *data, int x, int y, t_textures *text, int i, int tex_y)
+int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 commenta
 {
-	char	*dst;
-	char	*src;
-	int		color;
+	if (data->matrix[(int)(y + 0.005)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.005)] == '1' || data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y > y)
+		return (1);
+	if (data->matrix[(int)(y - 0.005)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.005)] == '1' || data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y < y)
+		return (2);//sud
+	if (data->matrix[(int)y][(int)(x + 0.005)] != '1' && (data->matrix[(int)(y - 0.005)][(int)x] == '1' || data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x > x)
+		return (3);//ovest
+	if (data->matrix[(int)y][(int)(x - 0.005)] != '1' && (data->matrix[(int)(y - 0.005)][(int)x] == '1' || data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x < x)
+		return (4);//est
+	if (rayAngle < 0.5 || rayAngle > 5)
+		return (4);
+	if (rayAngle >= 0.5 && rayAngle < 2)
+		return (2);
+	if (rayAngle >= 2 && rayAngle < 3.5)
+		return (3);
+	if (rayAngle >= 3.5 && rayAngle < 5)
+		return (1);
+	printf("angle:%f\n", rayAngle);
+	return (0);
+}
 
-	dst = data->game.addr + (y * data->game->line_length + x * (data->game->bits_per_pixel / 8));
-	if (data->wall_h[i] > FOV * 8)
-		tex_y += (floor(data->wall_h[i] - FOV * 8) / 2);
-	if (text == NULL)
-		*(unsigned int *)dst = BLACK;
+//void	text_pixel_put(t_data *data, int x, int y, t_textures *text, int tex_y, int wall)
+//{
+//	char	*dst;
+//	char	*src;
+//	int		color;
+
+//	dst = data->game->addr + (y * data->game->line_length + x * (data->game->bits_per_pixel / 8));
+//	if (wall > data->fov * 8)
+//		tex_y += (floor(wall - data->fov * 8) / 2);
+//	if (text == NULL)
+//		*(unsigned int *)dst = 0;
+//	else
+//	{
+//		src = text->addr + ((int)(tex_y * text->height / wall) * text->line_length + x * (text->bpp / 8));
+//		color = *(unsigned int *)src;
+//		*(unsigned int *)dst = color;
+//	}
+//}
+
+void	text_pixel_put(t_data *data, int x, int *y, t_textures *text, int wall, double ray_x, double ray_y)
+{
+	int			flag;
+	float		t_ratio;
+	float		t_y;
+	float		t_x;
+	int			pixel;
+
+	if (text == data->north || text == data->south)
+		flag = 0;
 	else
-	{
-		src = text->addr + ((int)(tex_y * text->h / data->wall_h[i]) * text->ll + (int)data->hit_x[i] * (text->bpp / 8));
-		color = *(unsigned int *)src;
-		*(unsigned int *)dst = color;
+		flag = 1;
+	if (flag == 0)
+	//	t_pos = (int)ray_x % text->width;
+	t_ratio = text->height / wall;
+	t_y = 0;
+	t_x = (int)((int)(text->width * (ray_x + ray_y)) % text->width);
+	while (++(*y) < data->half_w_height + wall)
+	{	
+		pixel = gettextcolor(t_x, t_y, text);
+		t_y += t_ratio;
+		my_pixel_put(data->game, x, *y, pixel);
 	}
 }
 
-void	trace_game_line(t_data *data, int orientation, float dist, const int x)
+void	trace_game_line(t_data *data, int orientation, float dist, const int x, double ray_x, double ray_y)
 {
 	int	wall;
 	int	y;
@@ -159,8 +141,9 @@ void	trace_game_line(t_data *data, int orientation, float dist, const int x)
 		my_pixel_put(data->game, x, y, data->ceiling);
 	y--;
 	if (orientation == 1)
-		while (++y < data->half_w_height + wall)
-			my_pixel_put(data->game, x, y, 3137239);
+		//while (++y < data->half_w_height + wall)
+			text_pixel_put(data, x, &y, data->north, wall, ray_x, ray_y);
+			//my_pixel_put(data->game, x, y, 3137239);
 	else if (orientation == 2)
 		while (++y < data->half_w_height + wall)
 			my_pixel_put(data->game, x, y, 4723712);
@@ -186,7 +169,6 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	rayAngle *= (PI / 180.0);
 	ray_cos = cos(rayAngle) / 256;
 	ray_sin = sin(rayAngle) / 256;
-	//printf("cos:%f sin:%f\n",  ray_cos, ray_sin);
 	ray_x = data->x;
 	ray_y = data->y;
 	dist = 0.0;
@@ -200,7 +182,7 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	dist = dist * cos((rayAngle - (PI / 180.0) * data->pov));
 	//ray_x -= ray_cos;
 	//ray_y -= ray_sin;
-	trace_game_line(data, get_orientation(data, ray_x, ray_y, rayAngle), dist, x);
+	trace_game_line(data, get_orientation(data, ray_x, ray_y, rayAngle), dist, x, ray_x, ray_y);
 }
 
 void	raycasting(t_data *data)
