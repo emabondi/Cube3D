@@ -6,7 +6,7 @@
 /*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/15 15:40:28 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/03/15 15:46:22 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 {
 	double	ray_cos;
 	double	ray_sin;
-	t_ray	r;	
+	t_ray	r;
 	// double	ray_x;
 	// double	ray_y;
 	// double	dist;

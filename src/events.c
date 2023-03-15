@@ -6,7 +6,7 @@
 /*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/15 15:23:24 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/03/15 15:52:11 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	mouse_exit(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
 	exit (0);
-	return (0);
 }
 
 int	ft_on(int keycode, t_data *data)
@@ -40,8 +39,6 @@ int	ft_on(int keycode, t_data *data)
 
 int	ft_off(int keycode, t_data *data)
 {
-	//if (keycode == ESC)
-	//	mouse_exit(data);
 	if (keycode == W)
 		data->w = 0;
 	if (keycode == A)

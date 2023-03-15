@@ -6,7 +6,7 @@
 /*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/14 18:07:36 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/03/15 15:48:46 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_data {
 	int			floor;
 	int			ceiling;
 
-	//map
+	// map
 	int			width;
 	int			height;
 	int			r_width;
