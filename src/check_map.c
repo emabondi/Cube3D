@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/03/07 17:45:55 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/15 15:39:23 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 void	check_zero(char **matrix, int i, int j)
 {
-	if (matrix[(i) - 1][(j)] == 0 || matrix[(i) - 1][(j)] == ' '
-		|| matrix[(i)][(j) - 1] == 0 || matrix[(i)][(j) - 1] == ' '
-		|| matrix[(i) + 1][(j)] == 0 || matrix[(i) + 1][(j)] == ' '
+	if (matrix[(i) - 1][(j)] == 0 || matrix[(i) - 1][(j)] == ' ' \
+		|| matrix[(i)][(j) - 1] == 0 || matrix[(i)][(j) - 1] == ' ' \
+		|| matrix[(i) + 1][(j)] == 0 || matrix[(i) + 1][(j)] == ' ' \
 		|| matrix[(i)][(j) + 1] == 0 || matrix[(i)][(j) + 1] == ' ')
-	{
-		printf("i:%d j:%d\n", i, j);
 		ft_error("Unclosed map");
-	}
 }
 
 void	check_map(t_data *map)
@@ -65,7 +62,7 @@ void	check_pov(t_data *map, char c, int i, int j)
 		else if (c == 'W')
 			map->pov = 180;
 		map->x = j + 0.4;
-		map->y = i ;
+		map->y = i;
 		map->matrix[i][j] = '0';
 	}
 }

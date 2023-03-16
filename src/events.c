@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/13 16:56:53 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/15 15:52:11 by gmeoli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	mouse_exit(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
 	exit (0);
-	return (0);
 }
 
 int	ft_on(int keycode, t_data *data)
@@ -40,8 +39,6 @@ int	ft_on(int keycode, t_data *data)
 
 int	ft_off(int keycode, t_data *data)
 {
-	//if (keycode == ESC)
-	//	mouse_exit(data);
 	if (keycode == W)
 		data->w = 0;
 	if (keycode == A)
@@ -85,11 +82,11 @@ void	ft_movements(t_data *data)
 	else if (data->pov < 0)
 		data->pov += 360;
 	if (data->w == 1)
-		ft_move((double)(data->pov * PI / 180), data);
+		ft_move((data->pov * PI / 180), data);
 	if (data->a == 1)
-		ft_move((double)(data->pov - 90) * PI / 180  , data);
+		ft_move((data->pov - 90) * PI / 180  , data);
 	if (data->s == 1)
-		ft_move((double)(data->pov - 180) * PI / 180 , data);
+		ft_move((data->pov - 180) * PI / 180 , data);
 	if (data->d == 1)
-		ft_move((double)(data->pov + 90) * PI / 180 , data);
+		ft_move((data->pov - 270) * PI / 180 , data);
 }
