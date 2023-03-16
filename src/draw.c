@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/14 18:16:39 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/03/15 17:47:40 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,20 @@ int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 comme
 // 	}
 // }
 
+void	get_tex_start(t_ray *ray, float *t_y)
+{
+	int	w;
+
+	if (/*ray->wall > W_WIDTH && */ray->dist <= 1)
+	{
+		w = (ray->wall - W_HEIGHT);
+		w *= ray->dist;
+		(*t_y) = abs(w);
+		//(*t_y) += 1;
+		printf("wallx2:%d w:%d y:%f\n", (ray->wall *2 ), w, *t_y);
+	}
+}
+
 void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
 {
 	float	t_ratio;
@@ -113,12 +127,14 @@ void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
 	t_ratio = ((float)text->height / (float)r->wall) / 2;
 	t_y = 0;
 	t_x = (int)((int)(text->width * (r->ray_x + r->ray_y)) % text->width);
-	// gettextstart();
+	get_tex_start(r, &t_y);
 	while (++(*y) < data->half_w_h + r->wall)
 	{	
 		pixel = gettextcolor(t_y, t_x, text);
 		t_y += t_ratio;
 		my_pixel_put(data->game, r->w_x, *y, pixel);
+		//if (r->dist < 0 && *y % 2 == 0)
+		//	(*y)--;
 	}
 }
 
@@ -126,10 +142,14 @@ void	trace_game_line(t_data *data, int orientation, t_ray *r)
 {
 	int	y;
 
-	if (r->dist < 1)
-		r->dist = 1;
+	if (r->dist < 0.2)
+	{
+		r->dist = 0.2;
+		//r->wall = -1;
+	}
 	r->wall = (int) data->half_w_h / r->dist;
 	y = -1;
+
 	while (++y < data->half_w_h - r->wall)
 		my_pixel_put(data->game, r->w_x, y, data->ceiling);
 	y--;
