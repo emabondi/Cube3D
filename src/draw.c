@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/16 10:33:34 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/20 13:06:58 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,11 @@ void	get_tex_start(t_ray *ray, float *t_y)
 
 	if (/*ray->wall > W_WIDTH && */ray->dist <= 1)
 	{
-		w = (ray->wall - W_HEIGHT);
-		w *= ray->dist;
+		w = (ray->wall * 2 - W_HEIGHT) / 4;
+		//printf ("w:%d\n", w);
+		//w *= ray->dist;
 		(*t_y) = abs(w);
-		//(*t_y) += 1;
-		printf("wallx2:%d w:%d y:%f\n", (ray->wall *2 ), w, *t_y);
+		//printf("wallx2:%d w:%d y:%f\n", (ray->wall *2 ), w, *t_y);
 	}
 }
 
@@ -124,11 +124,12 @@ void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
 	int		pixel;
 
 	// t_pos = (int)ray_x % text->width;
+	//printf("wall:%d\n", r->wall);
 	t_ratio = ((float)text->height / (float)r->wall) / 2;
 	t_y = 0;
 	t_x = (int)((int)(text->width * (r->ray_x + r->ray_y)) % text->width);
 	get_tex_start(r, &t_y);
-	while (++(*y) < data->half_w_h + r->wall)
+	while (++(*y) < data->half_w_h + r->wall && *y < W_HEIGHT)
 	{	
 		pixel = gettextcolor(t_y, t_x, text);
 		t_y += t_ratio;
@@ -142,33 +143,35 @@ void	trace_game_line(t_data *data, int orientation, t_ray *r)
 {
 	int	y;
 
-	if (r->dist < 0.2)
+	r->wall = 0;
+	if (r->dist < 1)
 	{
-		r->dist = 0.2;
+		r->wall += 10 / r->dist;
+		r->dist = 1;
 		//r->wall = -1;
 	}
-	r->wall = (int) data->half_w_h / r->dist;
+	r->wall += (int) data->half_w_h / r->dist;
 	y = -1;
 
 	while (++y < data->half_w_h - r->wall)
 		my_pixel_put(data->game, r->w_x, y, data->ceiling);
 	y--;
 	if (orientation == 1)
-		while (++y < data->half_w_h + r->wall)
-			text_pixel_put(data, r, &y, data->north);
-			//my_pixel_put(data->game, x, y, 3137239);
+		text_pixel_put(data, r, &y, data->north);
+		//while (++y < data->half_w_h + r->wall)
+		//	my_pixel_put(data->game, r->w_x, y, 3137239);
 	else if (orientation == 2)
-		while (++y < data->half_w_h + r->wall)
-			text_pixel_put(data, r, &y, data->east);
-			// my_pixel_put(data->game, r->w_x, y, 4723712);
+		text_pixel_put(data, r, &y, data->east);
+		//while (++y < data->half_w_h + r->wall)
+		//	 my_pixel_put(data->game, r->w_x, y, 4723712);
 	else if (orientation == 3)
-		while (++y < data->half_w_h + r->wall)
-			text_pixel_put(data, r, &y, data->west);
-			// my_pixel_put(data->game, r->w_x, y, 15953948);
+		text_pixel_put(data, r, &y, data->west);
+		//while (++y < data->half_w_h + r->wall)
+		//	 my_pixel_put(data->game, r->w_x, y, 15953948);
 	else if (orientation == 4)
-		while (++y < data->half_w_h + r->wall)
-			text_pixel_put(data, r, &y, data->south);
-			// my_pixel_put(data->game, r->w_x, y, 15330053);
+		text_pixel_put(data, r, &y, data->south);
+		//while (++y < data->half_w_h + r->wall)
+		//	 my_pixel_put(data->game, r->w_x, y, 15330053);
 	y--;
 	while (++y < W_HEIGHT)
 		my_pixel_put(data->game, r->w_x, y, data->floor);
