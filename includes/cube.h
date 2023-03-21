@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/20 12:17:52 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/21 12:56:47 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_ray {
 	double		ray_x;
 	double		ray_y;
 	double		dist;
+	double		real_dist;
 	int			w_x;
 	int			wall;
 }	t_ray;

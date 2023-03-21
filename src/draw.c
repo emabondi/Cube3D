@@ -6,61 +6,11 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/20 13:06:58 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/21 12:58:03 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
-
-
-//int	get_orientation(t_data *data, double x, double y, double rayAngle) //2 commenta
-//{
-//	if (y < data->y && data->matrix[(int)y][(int)(x - 0.01)] == '1' && data->matrix[(int)y][(int)(x + 0.01)] == '1')
-//		return (1);
-//	if (y > data->y && data->matrix[(int)y][(int)(x - 0.01)] == '1' && data->matrix[(int)y][(int)(x + 0.01)] == '1')
-//		return (2);//sud
-//	if (x < data->x && data->matrix[(int)(y - 0.01)][(int)x] == '1' && data->matrix[(int)(y + 0.01)][(int)x]== '1')
-//		return (3);//ovest
-//	if (x > data->x && data->matrix[(int)(y - 0.01)][(int)x] == '1' && data->matrix[(int)(y + 0.01)][(int)x]== '1')
-//		return (4);//est
-//	if (rayAngle < 0.5 || rayAngle > 5)
-//		return (4);
-//	if (rayAngle >= 0.5 && rayAngle < 2)
-//		return (2);
-//	if (rayAngle >= 2 && rayAngle < 3.5)
-//		return (3);
-//	if (rayAngle >= 3.5 && rayAngle < 5)
-//		return (1);
-//	return (0);
-//}
-
-//int	get_orientation(t_data *data, double x, double y, double rayAngle) //1 decommenta
-//{
-//	//(void)data;
-//	//(void)x;
-//	//(void)y;
-//	//(void)rayAngle;
-//	if (data->matrix[(int)(y - 0.01)][(int)x] == '1')
-//		return (1);
-//	else if (data->matrix[(int)(y + 0.01)][(int)x] == '1')
-//		return (2);
-//	else if (data->matrix[(int)y][(int)(x - 0.01)] == '1')
-//		return (3);
-//	else if (data->matrix[(int)y][(int)(x + 0.01)] == '1')
-//		return (4);
-//	else if (rayAngle < 0.5 || rayAngle > 5)
-//		return (4);
-//	else if (rayAngle >= 0.5 && rayAngle < 2)
-//		return (2);
-//	else if (rayAngle >= 2 && rayAngle < 3.5)
-//		return (3);
-//	else if (rayAngle >= 3.5 && rayAngle < 5)
-//		return (1);
-//	else {
-//		printf("rayAngle:%f\n", rayAngle);
-//		return (0);
-//	}
-//}
 
 int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 commenta
 {
@@ -83,59 +33,82 @@ int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 comme
 	return (0);
 }
 
-// void	text_pixel_put(t_data *data, int x, int y, t_textures *text, int tex_y, int wall)
-// {
-// 	char	*dst;
-// 	char	*src;
-// 	int		color;
+//void	get_tex_start(t_ray *ray, float *t_y)
+//{
+//	float	w;
 
-// 	dst = data->game->addr + (y * data->game->line_length + x * (data->game->bits_per_pixel / 8));
-// 	if (wall > data->fov * 8)
-// 		tex_y += (floor(wall - data->fov * 8) / 2);
-// 	if (text == NULL)
-// 		*(unsigned int *)dst = 0;
-// 	else
-// 	{
-// 		src = text->addr + ((int)(tex_y * text->height / wall) * text->line_length + x * (text->bpp / 8));
-// 		color = *(unsigned int *)src;
-// 		*(unsigned int *)dst = color;
-// 	}
-// }
+//	if (/*ray->wall > W_WIDTH && */ray->dist <= 1)
+//	{
+//		w = (ray->wall * 2 - W_HEIGHT) / 4;
+//		//printf ("w:%f\n", w);
+//		//w *= ray->dist;
+//		(*t_y) = w;
+//		//(*t_y) = abs(w);
+//		//printf("wallx2:%d w:%d y:%f\n", (ray->wall *2 ), w, *t_y);
+//	}
+//}
 
-void	get_tex_start(t_ray *ray, float *t_y)
+//void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
+//{
+//	float	t_ratio;
+//	float	t_y;
+//	float	t_x;
+//	int		pixel;
+
+//	// t_pos = (int)ray_x % text->width;
+//	//printf("wall:%d\n", r->wall);
+//	t_ratio = ((float)text->height / (float)r->wall) / 2;
+//	t_y = 0;
+//	t_x = (int)((int)(text->width * (r->ray_x + r->ray_y)) % text->width);
+//	get_tex_start(r, &t_y);
+//	while (++(*y) < data->half_w_h + r->wall && *y < W_HEIGHT)
+//	{	
+//		pixel = gettextcolor(t_y, t_x, text);
+//		t_y += t_ratio;
+//		my_pixel_put(data->game, r->w_x, *y, pixel);
+//	}
+//}
+int	printwallpixel(t_ray *ray, t_textures *text, int itexture)
 {
-	int	w;
+	int	textx;
 
-	if (/*ray->wall > W_WIDTH && */ray->dist <= 1)
+	textx = (((ray->ray_x + ray->ray_y) * 64.0)
+			- ((int)(ray->ray_x + ray->ray_y) * 64));
+	return (gettextcolor(textx, itexture, text));
+}
+
+void	gettextstart(t_ray *ray, double *yincrementer, int *itexture)
+{
+	int	wheigt;
+
+	wheigt = W_HEIGHT / 2 / ray->real_dist;
+	*yincrementer = (wheigt * 2) / 64.0;
+	if (ray->dist >= 1)
 	{
-		w = (ray->wall * 2 - W_HEIGHT) / 4;
-		//printf ("w:%d\n", w);
-		//w *= ray->dist;
-		(*t_y) = abs(w);
-		//printf("wallx2:%d w:%d y:%f\n", (ray->wall *2 ), w, *t_y);
+		*itexture = 0;
+		return ;
 	}
+	*itexture = (wheigt - W_HEIGHT / 2) / *yincrementer;
+	*yincrementer = (ray->wall * 2) / (64.0 - (*itexture) * 2);
 }
 
 void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
 {
-	float	t_ratio;
-	float	t_y;
-	float	t_x;
-	int		pixel;
+	double	d;
+	double	yincrementer;
+	int		itexture;
 
-	// t_pos = (int)ray_x % text->width;
-	//printf("wall:%d\n", r->wall);
-	t_ratio = ((float)text->height / (float)r->wall) / 2;
-	t_y = 0;
-	t_x = (int)((int)(text->width * (r->ray_x + r->ray_y)) % text->width);
-	get_tex_start(r, &t_y);
-	while (++(*y) < data->half_w_h + r->wall && *y < W_HEIGHT)
+	gettextstart(r, &yincrementer, &itexture);
+	d = *y;
+	while (*y < W_HEIGHT / 2 + r->wall)
 	{	
-		pixel = gettextcolor(t_y, t_x, text);
-		t_y += t_ratio;
-		my_pixel_put(data->game, r->w_x, *y, pixel);
-		//if (r->dist < 0 && *y % 2 == 0)
-		//	(*y)--;
+		d += yincrementer;
+		while (*y < d)
+		{
+			my_pixel_put(data->game, r->w_x, *y, printwallpixel(r, text, itexture));
+			(*y)++;
+		}
+		itexture++;
 	}
 }
 
@@ -143,16 +116,14 @@ void	trace_game_line(t_data *data, int orientation, t_ray *r)
 {
 	int	y;
 
-	r->wall = 0;
+	r->real_dist = r->dist;
 	if (r->dist < 1)
-	{
-		r->wall += 10 / r->dist;
 		r->dist = 1;
-		//r->wall = -1;
-	}
-	r->wall += (int) data->half_w_h / r->dist;
+	//r->wall += (int) data->half_w_h / r->dist;
+	r->wall = data->half_w_h / r->dist;
 	y = -1;
-
+	//printf ("wall:%d, dist:%f\n", r->wall, r->dist);
+	//pause();
 	while (++y < data->half_w_h - r->wall)
 		my_pixel_put(data->game, r->w_x, y, data->ceiling);
 	y--;
