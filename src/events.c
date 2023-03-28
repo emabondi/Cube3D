@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 18:43:38 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/28 19:27:30 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,26 @@ int	mouse_exit(t_data *data)
 	exit (0);
 }
 
-//void	opening(t_data *data)
-//{
-//	if(data->matrix[((int)data->x) + 1][(int)data->y] == 'D')
-//		printf("position: %c\n ", data->matrix[((int)data->x)][(int)data->y]);
-//	if(data->matrix[(int)data->x][((int)data->y) + 1] == 'D')
-//		data->matrix[(int)data->x][((int)data->y) + 1] = 'd';
-//	if(data->matrix[((int)data->x) - 1][(int)data->y] == 'D')
-//		data->matrix[((int)data->x) - 1][(int)data->y] = 'd';
-//	if(data->matrix[(int)data->x][((int)data->y) - 1] == 'D')
-//		data->matrix[(int)data->x][((int)data->y) - 1] = 'd';
-//}
+void	opening(t_data *data)
+{
+
+	if(data->matrix[(int)(data->y + 1)][(int)(data->x)] == 'D')
+		data->matrix[(int)(data->y + 1)][(int)(data->x)] = 'd';
+	else if (data->matrix[(int)(data->y + 1)][(int)(data->x)] == 'd')
+		data->matrix[(int)(data->y + 1)][(int)(data->x)] = 'D';
+	if(data->matrix[(int)(data->y)][(int)(data->x + 1)] == 'D')
+		data->matrix[(int)(data->y)][(int)(data->x + 1)] = 'd';
+	else if (data->matrix[(int)(data->y)][(int)(data->x + 1)] == 'd')
+		data->matrix[(int)(data->y)][(int)(data->x + 1)] = 'D';	
+	if(data->matrix[(int)(data->y - 1)][(int)(data->x)] == 'D')
+		data->matrix[(int)(data->y - 1)][(int)(data->x)] = 'd';
+	else if (data->matrix[(int)(data->y - 1)][(int)(data->x)] == 'd')
+		data->matrix[(int)(data->y - 1)][(int)(data->x)] = 'D';
+	if(data->matrix[(int)(data->y)][(int)(data->x - 1)] == 'D')
+		data->matrix[(int)(data->y)][(int)(data->x - 1)] = 'd';
+	else if (data->matrix[(int)(data->y)][(int)(data->x - 1)] == 'd')
+		data->matrix[(int)(data->y)][(int)(data->x - 1)] = 'D';
+}
 
 int	ft_on(int keycode, t_data *data)
 {	
@@ -46,8 +55,8 @@ int	ft_on(int keycode, t_data *data)
 		data->l = 1;
 	if (keycode == RIGHT)
 		data->r = 1;
-	//if (keycode == SPACE)
-	//	opening(data);
+	if (keycode == SPACE)
+		opening(data);
 	return (0);
 }
 
