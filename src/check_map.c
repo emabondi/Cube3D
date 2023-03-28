@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/03/15 15:39:23 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:04:11 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ void	check_map(t_data *map)
 				ft_error("Border map error");
 			else if (map->matrix[i][j] == '0' || map->matrix[i][j] == 'N'\
 				|| map->matrix[i][j] == 'S' || map->matrix[i][j] == 'E' \
-				|| map->matrix[i][j] == 'W')
+				|| map->matrix[i][j] == 'W' || map->matrix[i][j] == 'd'\
+				|| map->matrix[i][j] == 'D')
 				check_zero(map->matrix, i, j);
+			else if (map->matrix[i][j] != ' ' && map->matrix[i][j] != '1'){
+				printf("char:%c\n", map->matrix[i][j]);
+				ft_error("Unknown char in map");}
 			j++;
 		}
 		i++;

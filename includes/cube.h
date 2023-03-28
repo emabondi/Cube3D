@@ -6,7 +6,7 @@
 /*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/21 12:56:47 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:28:29 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 	# define D			2
 	# define LEFT		123
 	# define RIGHT		124
+	# define SPACE	    49
 // >
 # define ESC		53
 # define W_HEIGHT	1080
@@ -69,7 +70,7 @@ typedef struct s_data {
 	t_textures	*south;
 	t_textures	*west;
 	t_textures	*east;
-	//t_textures	*door;
+	t_textures	*door;
 	void		*mlx;
 	void		*win;
 	// int			w_height;

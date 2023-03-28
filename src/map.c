@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:24:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/14 18:04:07 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:24:00 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,11 @@ void	get_info(char *f, t_data *data)
 	close(fd);
 	data->r_width = W_WIDTH / 4 / data->width;
 	data->r_height = W_HEIGHT / 4 / data->height;
+	data->door = (t_textures *)malloc(sizeof(t_textures));
+	data->door = mlx_xpm_file_to_image(data->mlx, "textures/door-copy.xpm", &data->door->width, &data->door->height);
+	if (!data->door)
+		ft_error("Unvalid door");
+	data->door->addr = mlx_get_data_addr(data->door, &data->door->bpp,
+			&data->door->l_length, &data->door->endian);
 	get_map(data, f, lines);
 }

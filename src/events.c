@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmeoli <gmeoli@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/15 15:52:11 by gmeoli           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:43:38 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,20 @@ int	mouse_exit(t_data *data)
 	exit (0);
 }
 
+//void	opening(t_data *data)
+//{
+//	if(data->matrix[((int)data->x) + 1][(int)data->y] == 'D')
+//		printf("position: %c\n ", data->matrix[((int)data->x)][(int)data->y]);
+//	if(data->matrix[(int)data->x][((int)data->y) + 1] == 'D')
+//		data->matrix[(int)data->x][((int)data->y) + 1] = 'd';
+//	if(data->matrix[((int)data->x) - 1][(int)data->y] == 'D')
+//		data->matrix[((int)data->x) - 1][(int)data->y] = 'd';
+//	if(data->matrix[(int)data->x][((int)data->y) - 1] == 'D')
+//		data->matrix[(int)data->x][((int)data->y) - 1] = 'd';
+//}
+
 int	ft_on(int keycode, t_data *data)
-{
+{	
 	if (keycode == ESC)
 		mouse_exit(data);
 	if (keycode == W)
@@ -34,6 +46,8 @@ int	ft_on(int keycode, t_data *data)
 		data->l = 1;
 	if (keycode == RIGHT)
 		data->r = 1;
+	//if (keycode == SPACE)
+	//	opening(data);
 	return (0);
 }
 
@@ -61,11 +75,11 @@ void	ft_move(double angle, t_data *data)
 
 	rcos = cos(angle);
 	rsin = sin(angle);
-	if (data->matrix[(int)(data->y + rsin * 0.1)]
-		[(int)(data->x + rcos * 0.1)] == '1' || data->matrix[(int)(data->y + rsin * 0.07)]
-		[(int)(data->x + rcos * 0.07)] == '1'/* ||
-		data->matrix[(int)(data->y + rsin * 0.1)]
-		[(int)(data->x + rcos * 0.1)] == 'D'*/)
+	if (data->matrix[(int)(data->y + rsin * 0.2)]
+		[(int)(data->x + rcos * 0.2)] == '1' || data->matrix[(int)(data->y + rsin * 0.07)]
+		[(int)(data->x + rcos * 0.07)] == '1' ||
+		data->matrix[(int)(data->y + rsin * 0.2)]
+		[(int)(data->x + rcos * 0.2)] == 'D')
 		return ;
 	data->y += rsin * 0.1;
 	data->x += rcos * 0.1;
