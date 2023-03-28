@@ -6,7 +6,7 @@
 /*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 19:43:16 by fgrossi          ###   ########.fr       */
+/*   Updated: 2023/03/28 20:37:17 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_init_struct(t_data *data)
 	data->east = NULL;
 	// data->w_height = 1080;
 	// data->w_width = 1920;
+	data->alt_dor = 0;
 	data->half_w_h = W_HEIGHT / 2;
 	data->floor = -1;
 	data->ceiling = -1;

@@ -6,7 +6,7 @@
 /*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 20:10:38 by fgrossi          ###   ########.fr       */
+/*   Updated: 2023/03/28 20:53:46 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ void	trace_game_line(t_data *data, int orientation, t_ray *r)
 		text_pixel_put(data, r, &y, data->south);
 	else if (orientation == 5)
 		text_pixel_put(data, r, &y, data->door);
+	else if (orientation == 6)
+		text_pixel_put(data, r, &y, data->door2);
 	y--;
 	while (++y < W_HEIGHT)
 		my_pixel_put(data->game, r->w_x, y, data->floor);
@@ -113,7 +115,9 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	double	ray_cos;
 	double	ray_sin;
 	t_ray	r;
-
+	time_t seconds;
+     
+    seconds = time(NULL);
 	r.w_x = x;
 	rayAngle *= (PI / 180.0);
 	ray_cos = cos(rayAngle) / 256;
@@ -131,8 +135,11 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	r.dist = r.dist * cos((rayAngle - (PI / 180.0) * data->pov));
 	//ray_x -= ray_cos;
 	//ray_y -= ray_sin;
-	if(data->matrix[(int)r.ray_y][(int)r.ray_x] == 'D')
+	//alternate between door and door2 by changing the 5 to 6
+	if(data->matrix[(int)r.ray_y][(int)r.ray_x] == 'D' && seconds % 2 == 0)
 		trace_game_line(data, 5, &r);
+	else if(data->matrix[(int)r.ray_y][(int)r.ray_x] == 'D' && seconds % 2 != 0)
+		trace_game_line(data, 6, &r);
 	else
 		trace_game_line(data, get_orientation(data, r.ray_x, r.ray_y, rayAngle), &r);
 }

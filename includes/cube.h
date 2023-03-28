@@ -6,7 +6,7 @@
 /*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 19:52:59 by fgrossi          ###   ########.fr       */
+/*   Updated: 2023/03/28 20:53:24 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
+#include <time.h>
 //# include "../mlx/mlx.h"
 #include <mlx.h>
 
@@ -71,6 +72,7 @@ typedef struct s_data {
 	t_textures	*west;
 	t_textures	*east;
 	t_textures	*door;
+	t_textures	*door2;
 	void		*mlx;
 	void		*win;
 	// int			w_height;
@@ -78,6 +80,9 @@ typedef struct s_data {
 	int			half_w_h;
 	int			floor;
 	int			ceiling;
+
+	//test
+	int			alt_dor;
 
 	// map
 	int			width;
