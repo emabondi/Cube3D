@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 18:28:29 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/28 19:52:59 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int				mouse_exit(t_data *data);
 int				ft_on(int keycode, t_data *data);
 int				ft_off(int keycode, t_data *data);
 void			ft_movements(t_data *data);
+int				mlx_mouse_get_pos(void *win_ptr, int *x, int *y);
 
 //draw
 int				draw(t_data *data);

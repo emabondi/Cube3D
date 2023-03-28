@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 18:15:10 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/28 20:10:38 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
+
 
 int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 commenta
 {
@@ -178,8 +179,25 @@ void	draw_minimap(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->win, data->game->img, 0, 0);
 }
 
+void mouse_movements(t_data *data)
+{
+	int	x;
+	int	y;
+
+	mlx_mouse_get_pos(data->win, &x, &y);
+	if (x < W_WIDTH / 2 && x > 0 && y > 0 && y < W_HEIGHT)
+		data->pov -= (W_WIDTH / 2 - x) / 100;
+	if (x > W_WIDTH / 2 && x < W_WIDTH && y > 0 && y < W_HEIGHT)
+		data->pov += (x - W_WIDTH / 2) / 100;
+	if (data->pov > 360)
+		data->pov -= 360;
+	if (data->pov < 0)
+		data->pov += 360;
+}
+
 int	draw(t_data *data)
 {
+	mouse_movements(data);
 	ft_movements(data);
 	draw_minimap(data);
 	raycasting(data);
