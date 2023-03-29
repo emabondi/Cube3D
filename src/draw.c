@@ -3,26 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/29 17:50:02 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:52:43 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube.h"
 
-
-int	get_orientation(t_data *data, double x, double y, double rayAngle) //3 commenta
+int	get_orientation(t_data *data, double x, double y, double rayAngle)
 {
-	if (data->matrix[(int)(y + 0.005)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.005)] == '1' || data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y > y)
+	if (data->matrix[(int)(y + 0.005)][(int)x] != '1' &&
+		(data->matrix[(int)y][(int)(x - 0.005)] == '1'
+			|| data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y > y)
 		return (1);
-	if (data->matrix[(int)(y - 0.005)][(int)x] != '1' && (data->matrix[(int)y][(int)(x - 0.005)] == '1' || data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y < y)
-		return (2);//sud
-	if (data->matrix[(int)y][(int)(x + 0.005)] != '1' && (data->matrix[(int)(y - 0.005)][(int)x] == '1' || data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x > x)
-		return (3);//ovest
-	if (data->matrix[(int)y][(int)(x - 0.005)] != '1' && (data->matrix[(int)(y - 0.005)][(int)x] == '1' || data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x < x)
-		return (4);//est
+	if (data->matrix[(int)(y - 0.005)][(int)x] != '1' &&
+		(data->matrix[(int)y][(int)(x - 0.005)] == '1'
+			|| data->matrix[(int)y][(int)(x + 0.005)] == '1') && data->y < y)
+		return (2);
+	if (data->matrix[(int)y][(int)(x + 0.005)] != '1' &&
+		(data->matrix[(int)(y - 0.005)][(int)x] == '1'
+			|| data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x > x)
+		return (3);
+	if (data->matrix[(int)y][(int)(x - 0.005)] != '1' &&
+		(data->matrix[(int)(y - 0.005)][(int)x] == '1'
+			|| data->matrix[(int)(y + 0.005)][(int)x] == '1') && data->x < x)
+		return (4);
 	if (rayAngle < 0.5 || rayAngle > 5)
 		return (4);
 	if (rayAngle >= 0.5 && rayAngle < 2)
@@ -68,13 +75,13 @@ void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
 	if (*y == -1)
 		(*y)++;
 	d = *y;
-	//printf("yincr:%f\n", yincrementer);
 	while (*y < W_HEIGHT / 2 + r->wall && *y < W_HEIGHT)
 	{
 		d += yincrementer;
 		while (*y <= d && *y < W_HEIGHT)
 		{
-			my_pixel_put(data->game, r->w_x, *y, printwallpixel(r, text, itexture));
+			my_pixel_put(data->game, r->w_x, *y,
+				printwallpixel(r, text, itexture));
 			(*y)++;
 		}
 		itexture++;
@@ -108,105 +115,4 @@ void	trace_game_line(t_data *data, int orientation, t_ray *r)
 	y--;
 	while (++y < W_HEIGHT)
 		my_pixel_put(data->game, r->w_x, y, data->floor);
-}
-
-void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
-{
-	double	ray_cos;
-	double	ray_sin;
-	t_ray	r;
-	time_t seconds;
-     
-    seconds = time(NULL);
-	r.w_x = x;
-	rayAngle *= (PI / 180.0);
-	ray_cos = cos(rayAngle) / 256;
-	ray_sin = sin(rayAngle) / 256;
-	r.ray_x = data->x;
-	r.ray_y = data->y;
-	r.dist = 0.0;
-	while (data->matrix[(int)r.ray_y][(int)r.ray_x] != '1' && data->matrix[(int)r.ray_y][(int)r.ray_x] != 'D')
-	{
-		r.ray_x += ray_cos;
-		r.ray_y += ray_sin;
-		my_pixel_put(minimap, (int)(r.ray_x * data->r_width), (int) (r.ray_y * data->r_height), 16774656);
-	}
-	r.dist = sqrt(powf(data->x - r.ray_x, 2) + powf(data->y - r.ray_y, 2));
-	r.dist = r.dist * cos((rayAngle - (PI / 180.0) * data->pov));
-	//ray_x -= ray_cos;
-	//ray_y -= ray_sin;
-	if(data->matrix[(int)r.ray_y][(int)r.ray_x] == 'D' && seconds % 2 == 0)
-		trace_game_line(data, 5, &r);
-	else if(data->matrix[(int)r.ray_y][(int)r.ray_x] == 'D' && seconds % 2 != 0)
-		trace_game_line(data, 6, &r);
-	else
-		trace_game_line(data, get_orientation(data, r.ray_x, r.ray_y, rayAngle), &r);
-}
-
-void	raycasting(t_data *data)
-{
-	double	rayAngle;
-	double	increment;
-	int		i;
-
-	rayAngle = data->pov - HALF_FOV;
-	increment = (double)FOV / (double)W_WIDTH;
-	i = 0;
-	while (rayAngle < data->pov + HALF_FOV)
-	{
-		trace_ray(data, data->minimap, rayAngle, i);
-		rayAngle += increment;
-		i++;
-	}
-}
-
-void	draw_minimap(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while (data->matrix[++i] != NULL)
-	{
-		j = -1;
-		while (data->matrix[i][++j] != '\0')
-		{
-			if (data->matrix[i][j] == '1')
-				draw_square(data, j * data->r_width, i * data->r_height, 200);
-			else if (data->matrix[i][j] == 'D')
-				draw_square(data, j * data->r_width, i * data->r_height, 10551296);
-			else if (data->matrix[i][j] == 'd')
-				draw_square(data, j * data->r_width, i * data->r_height, 65280);
-			else
-				draw_square(data, j * data->r_width, i * data->r_height, 0);
-		}
-	}
-	draw_circle(data->minimap, data->x * data->r_width - 2.5, data->y * data->r_height - 2.5);
-	mlx_put_image_to_window(data->mlx, data->win, data->game->img, 0, 0);
-}
-
-void mouse_movements(t_data *data)
-{
-	int	x;
-	int	y;
-
-	mlx_mouse_get_pos(data->win, &x, &y);
-	if (x < W_WIDTH / 2 && x > 0 && y > 0 && y < W_HEIGHT)
-		data->pov -= (W_WIDTH / 2 - x) / 100;
-	if (x > W_WIDTH / 2 && x < W_WIDTH && y > 0 && y < W_HEIGHT)
-		data->pov += (x - W_WIDTH / 2) / 100;
-	if (data->pov > 360)
-		data->pov -= 360;
-	if (data->pov < 0)
-		data->pov += 360;
-}
-
-int	draw(t_data *data)
-{
-	mouse_movements(data);
-	ft_movements(data);
-	draw_minimap(data);
-	raycasting(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->minimap->img, 10, 10);
-	return (0);
 }

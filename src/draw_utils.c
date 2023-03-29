@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 11:17:15 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/29 17:40:30 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:50:36 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	my_pixel_put(t_image *image, int x, int y, int color)
 	char	*dst;
 
 	dst = image->addr + (y * image->l_length + x * (image->bpp / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *)dst = color;
 }
 
 void	draw_square(t_data *data, int x, int y, int c)
@@ -30,7 +30,7 @@ void	draw_square(t_data *data, int x, int y, int c)
 	{
 		j = -1;
 		while (++j < data->r_width)
-			my_pixel_put(data->minimap, x + j , y + i, c);
+			my_pixel_put(data->minimap, x + j, y + i, c);
 	}
 }
 
@@ -39,7 +39,7 @@ void	draw_circle(t_image *image, float x, float y)
 	int	i;
 	int	j;
 	int	o;
-	int tot;
+	int	tot;
 
 	i = -1;
 	o = 2;

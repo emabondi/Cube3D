@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+         #
+#    By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 15:02:44 by ebondi            #+#    #+#              #
-#    Updated: 2023/03/29 18:37:31 by ebondi           ###   ########.fr        #
+#    Updated: 2023/03/29 19:21:24 by fgrossi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 NAMEBONUS = cub3D_bonus
 LIBFT = ./libft/libft.a
 MLX = ./mlx/libmlx.a
-SRCSFLS = main.c check_map.c map.c utils.c events.c draw.c draw_utils.c draw2.c
+SRCSFLS = main.c check_map.c map.c utils.c events.c draw.c draw_utils.c draw2.c utils_2.c garbage.c
 SRCS = $(addprefix src/, $(SRCSFLS))
 OBJS = $(SRCSFLS:.c=.o)
 GNLFLS = get_next_line.c get_next_line_utils.c

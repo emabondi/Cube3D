@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/29 18:29:41 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/29 19:19:04 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,20 @@ typedef struct s_data {
 	t_textures	*door2;
 	void		*mlx;
 	void		*win;
-	// int			w_height;
-	// int			w_width;
 	int			half_w_h;
 	int			floor;
 	int			ceiling;
-
-	//test
 	int			alt_dor;
-
-	// map
 	int			width;
 	int			height;
 	int			r_width;
 	int			r_height;
 	char		**matrix;
 	double		pov;
-	// int			fov;
-	// int			half_fov;
 	float		x;
 	float		y;
 	t_image		*minimap;
 	t_image		*game;
-
-	//movements
 	int			w;
 	int			a;
 	int			s;
@@ -114,6 +104,17 @@ int				ft_skip_spaces(char *str);
 int				map_at_eof(t_data *data);
 void			free_matrix(char **mat);
 t_textures		*save_info_door(char *str, t_data *data);
+void			ft_malloc_map(t_data *data, int fd);
+void			trace_game_line(t_data *data, int orientation, t_ray *r);
+int				get_orientation(t_data *data,
+					double x, double y, double rayAngle);
+void			mouse_movements(t_data *data);
+void			draw_minimap(t_data *data);
+void			opening(t_data *data);
+t_textures		*save_info(char *str, t_data *data, t_textures *check);
+void			parse_line_2(t_data *data, char *str);
+void			get_colors(char *str, t_data *data);
+void			copy_char(t_data *data, char b, int *o, int *i);
 
 //map
 void			get_info(char *f, t_data *data);

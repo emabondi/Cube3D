@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 20:13:03 by gmeoli            #+#    #+#             */
-/*   Updated: 2023/03/28 18:04:11 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/29 19:18:49 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@ void	check_map(t_data *map)
 				|| map->matrix[i][j] == 'W' || map->matrix[i][j] == 'd'\
 				|| map->matrix[i][j] == 'D')
 				check_zero(map->matrix, i, j);
-			else if (map->matrix[i][j] != ' ' && map->matrix[i][j] != '1'){
-				printf("char:%c\n", map->matrix[i][j]);
-				ft_error("Unknown char in map");}
+			else if (map->matrix[i][j] != ' ' && map->matrix[i][j] != '1')
+				ft_error("Unknown char in map");
 			j++;
 		}
 		i++;
@@ -71,41 +70,13 @@ void	check_pov(t_data *map, char c, int i, int j)
 	}
 }
 
-void	copy_char(t_data *data, char b, int *o, int *i)
-{
-	int	tmp;
-
-	if (b == 9)
-	{
-		tmp = *o + 4;
-		while (*o < tmp)
-		{
-			data->matrix[*i][*o] = ' ';
-			(*o)++;
-		}
-	}
-	else
-	{
-		data->matrix[*i][*o] = b;
-		(*o)++;
-	}
-}
-
-void	ft_malloc_map(t_data *data, int fd)
+void	ft_malloc_map_2(t_data *data, int fd)
 {
 	int		i;
-	int		j;
-	int		o;
 	char	*buff;
+	int		o;
+	int		j;
 
-	data->matrix = (char **) malloc(sizeof(char *) * data->height + 1);
-	data->matrix[data->height] = NULL;
-	i = -1;
-	while (++i < data->height)
-	{
-		data->matrix[i] = (char *) malloc(sizeof(char) * data->width + 1);
-		ft_memset(data->matrix[i], '\0', data->width + 1);
-	}
 	i = -1;
 	while (++i < data->height)
 	{
@@ -122,23 +93,17 @@ void	ft_malloc_map(t_data *data, int fd)
 	}
 }
 
-void	get_map(t_data *data, char *f, int lines)
+void	ft_malloc_map(t_data *data, int fd)
 {
-	int		fd;
-	char	*buff;
 	int		i;
 
-	fd = open(f, O_RDONLY);
-	if (fd == -1)
-		ft_error("No such file or directory");
-	buff = get_next_line(fd);
-	i = lines - data->height;
-	while (--i > 1)
+	data->matrix = (char **) malloc(sizeof(char *) * data->height + 1);
+	data->matrix[data->height] = NULL;
+	i = -1;
+	while (++i < data->height)
 	{
-		free (buff);
-		buff = get_next_line(fd);
+		data->matrix[i] = (char *) malloc(sizeof(char) * data->width + 1);
+		ft_memset(data->matrix[i], '\0', data->width + 1);
 	}
-	free(buff);
-	ft_malloc_map(data, fd);
-	close(fd);
+	ft_malloc_map_2(data, fd);
 }

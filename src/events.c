@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/29 18:31:25 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/29 19:14:35 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,6 @@ int	mouse_exit(t_data *data)
 {
 	mlx_destroy_window(data->mlx, data->win);
 	exit (0);
-}
-
-void	opening(t_data *data)
-{
-	if (data->matrix[(int)(data->y + 1)][(int)(data->x)] == 'D')
-		data->matrix[(int)(data->y + 1)][(int)(data->x)] = 'd';
-	else if (data->matrix[(int)(data->y + 1)][(int)(data->x)] == 'd')
-		data->matrix[(int)(data->y + 1)][(int)(data->x)] = 'D';
-	if (data->matrix[(int)(data->y)][(int)(data->x + 1)] == 'D')
-		data->matrix[(int)(data->y)][(int)(data->x + 1)] = 'd';
-	else if (data->matrix[(int)(data->y)][(int)(data->x + 1)] == 'd')
-		data->matrix[(int)(data->y)][(int)(data->x + 1)] = 'D';	
-	if (data->matrix[(int)(data->y - 1)][(int)(data->x)] == 'D')
-		data->matrix[(int)(data->y - 1)][(int)(data->x)] = 'd';
-	else if (data->matrix[(int)(data->y - 1)][(int)(data->x)] == 'd')
-		data->matrix[(int)(data->y - 1)][(int)(data->x)] = 'D';
-	if (data->matrix[(int)(data->y)][(int)(data->x - 1)] == 'D')
-		data->matrix[(int)(data->y)][(int)(data->x - 1)] = 'd';
-	else if (data->matrix[(int)(data->y)][(int)(data->x - 1)] == 'd')
-		data->matrix[(int)(data->y)][(int)(data->x - 1)] = 'D';
 }
 
 int	ft_on(int keycode, t_data *data)
@@ -84,7 +64,8 @@ void	ft_move(double angle, t_data *data)
 	rcos = cos(angle);
 	rsin = sin(angle);
 	if (data->matrix[(int)(data->y + rsin * 0.2)]
-		[(int)(data->x + rcos * 0.2)] == '1' || data->matrix[(int)(data->y + rsin * 0.07)]
+		[(int)(data->x + rcos * 0.2)] == '1' ||
+			data->matrix[(int)(data->y + rsin * 0.07)]
 		[(int)(data->x + rcos * 0.07)] == '1' ||
 		data->matrix[(int)(data->y + rsin * 0.2)]
 		[(int)(data->x + rcos * 0.2)] == 'D')
@@ -106,9 +87,9 @@ void	ft_movements(t_data *data)
 	if (data->w == 1)
 		ft_move((data->pov * PI / 180), data);
 	if (data->a == 1)
-		ft_move((data->pov - 90) * PI / 180  , data);
+		ft_move((data->pov - 90) * PI / 180, data);
 	if (data->s == 1)
-		ft_move((data->pov - 180) * PI / 180 , data);
+		ft_move((data->pov - 180) * PI / 180, data);
 	if (data->d == 1)
-		ft_move((data->pov - 270) * PI / 180 , data);
+		ft_move((data->pov - 270) * PI / 180, data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
+/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/29 18:32:32 by ebondi           ###   ########.fr       */
+/*   Updated: 2023/03/29 19:09:24 by fgrossi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	ft_init_struct(t_data *data)
 	data->south = NULL;
 	data->west = NULL;
 	data->east = NULL;
-	// data->w_height = 1080;
-	// data->w_width = 1920;
 	data->alt_dor = 0;
 	data->half_w_h = W_HEIGHT / 2;
 	data->floor = -1;
@@ -53,8 +51,6 @@ void	ft_init_struct(t_data *data)
 	data->r_width = 0;
 	data->r_height = 0;
 	data->pov = -1;
-	// data->fov = 60;
-	// data->half_fov = data->fov / 2;
 	data->w = 0;
 	data->a = 0;
 	data->s = 0;
