@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:06 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 20:37:17 by fgrossi          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:32:32 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	ft_init_struct(t_data *data)
 	data->d = 0;
 	data->l = 0;
 	data->r = 0;
+	data->door = save_info_door("textures/door-copy.xpm", data);
+	data->door2 = save_info_door("textures/door-copy2.xpm", data);
 }
 
 int	main(int argc, char *argv[])

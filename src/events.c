@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 15:52:13 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 19:56:57 by fgrossi          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:31:25 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ int	mouse_exit(t_data *data)
 
 void	opening(t_data *data)
 {
-	if(data->matrix[(int)(data->y + 1)][(int)(data->x)] == 'D')
+	if (data->matrix[(int)(data->y + 1)][(int)(data->x)] == 'D')
 		data->matrix[(int)(data->y + 1)][(int)(data->x)] = 'd';
 	else if (data->matrix[(int)(data->y + 1)][(int)(data->x)] == 'd')
 		data->matrix[(int)(data->y + 1)][(int)(data->x)] = 'D';
-	if(data->matrix[(int)(data->y)][(int)(data->x + 1)] == 'D')
+	if (data->matrix[(int)(data->y)][(int)(data->x + 1)] == 'D')
 		data->matrix[(int)(data->y)][(int)(data->x + 1)] = 'd';
 	else if (data->matrix[(int)(data->y)][(int)(data->x + 1)] == 'd')
 		data->matrix[(int)(data->y)][(int)(data->x + 1)] = 'D';	
-	if(data->matrix[(int)(data->y - 1)][(int)(data->x)] == 'D')
+	if (data->matrix[(int)(data->y - 1)][(int)(data->x)] == 'D')
 		data->matrix[(int)(data->y - 1)][(int)(data->x)] = 'd';
 	else if (data->matrix[(int)(data->y - 1)][(int)(data->x)] == 'd')
 		data->matrix[(int)(data->y - 1)][(int)(data->x)] = 'D';
-	if(data->matrix[(int)(data->y)][(int)(data->x - 1)] == 'D')
+	if (data->matrix[(int)(data->y)][(int)(data->x - 1)] == 'D')
 		data->matrix[(int)(data->y)][(int)(data->x - 1)] = 'd';
 	else if (data->matrix[(int)(data->y)][(int)(data->x - 1)] == 'd')
 		data->matrix[(int)(data->y)][(int)(data->x - 1)] = 'D';

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 18:33:19 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 20:53:46 by fgrossi          ###   ########.fr       */
+/*   Updated: 2023/03/29 17:50:02 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	text_pixel_put(t_data *data, t_ray *r, int *y, t_textures *text)
 		(*y)++;
 	d = *y;
 	//printf("yincr:%f\n", yincrementer);
-	while (*y < W_HEIGHT / 2 + r->wall)
+	while (*y < W_HEIGHT / 2 + r->wall && *y < W_HEIGHT)
 	{
 		d += yincrementer;
-		while (*y <= d)
+		while (*y <= d && *y < W_HEIGHT)
 		{
 			my_pixel_put(data->game, r->w_x, *y, printwallpixel(r, text, itexture));
 			(*y)++;
@@ -135,7 +135,6 @@ void	trace_ray(t_data *data, t_image *minimap, double rayAngle, const int x)
 	r.dist = r.dist * cos((rayAngle - (PI / 180.0) * data->pov));
 	//ray_x -= ray_cos;
 	//ray_y -= ray_sin;
-	//alternate between door and door2 by changing the 5 to 6
 	if(data->matrix[(int)r.ray_y][(int)r.ray_x] == 'D' && seconds % 2 == 0)
 		trace_game_line(data, 5, &r);
 	else if(data->matrix[(int)r.ray_y][(int)r.ray_x] == 'D' && seconds % 2 != 0)

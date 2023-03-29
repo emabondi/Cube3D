@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/28 20:53:24 by fgrossi          ###   ########.fr       */
+/*   Updated: 2023/03/29 18:29:41 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int				check_name(char *str);
 int				ft_skip_spaces(char *str);
 int				map_at_eof(t_data *data);
 void			free_matrix(char **mat);
+t_textures		*save_info_door(char *str, t_data *data);
 
 //map
 void			get_info(char *f, t_data *data);
