@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:25:16 by ebondi            #+#    #+#             */
-/*   Updated: 2023/03/29 19:19:04 by fgrossi          ###   ########.fr       */
+/*   Updated: 2023/03/29 19:33:03 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <math.h>
-#include <time.h>
+# include <time.h>
 //# include "../mlx/mlx.h"
-#include <mlx.h>
+# include <mlx.h>
 
 # define PI 		3.14159265359f
 //keypress <
-	# define W			13
-	# define A			0
-	# define S			1
-	# define D			2
-	# define LEFT		123
-	# define RIGHT		124
-	# define SPACE	    49
+# define W			13
+# define A			0
+# define S			1
+# define D			2
+# define LEFT		123
+# define RIGHT		124
+# define SPACE	    49
 // >
 # define ESC		53
 # define W_HEIGHT	1080
