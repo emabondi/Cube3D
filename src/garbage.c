@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fgrossi <fgrossi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ebondi <ebondi@student.42roma.it>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 19:11:35 by fgrossi           #+#    #+#             */
-/*   Updated: 2023/03/29 19:18:52 by fgrossi          ###   ########.fr       */
+/*   Updated: 2023/05/04 19:41:57 by ebondi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	get_info(char *f, t_data *data)
 		ft_error("No such file or directory");
 	lines = 1;
 	str = get_next_line(fd);
+	if (str == NULL)
+		ft_error("Empty file");
 	while (str != NULL)
 	{
 		parse_line(str, data);
